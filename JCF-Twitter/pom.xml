@@ -15,7 +15,7 @@
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<org.slf4j-version>1.6.1</org.slf4j-version>
 		<org.aspectj-version>1.6.9</org.aspectj-version>
-		<jcf.version>3.7.4-SNAPSHOT</jcf.version>
+		<jcf.version>3.7.4</jcf.version>
 	</properties>
 
 	<build>
