@@ -33,15 +33,5 @@ public class LoginController {
 //		mciResponse.setViewName("customer_list");
 //	}
 //
-	@RequestMapping("loginHandle")
-	public void loginHandle(MciRequest mciRequest, MciResponse mciResponse){
-		UserVO param = mciRequest.getParam(UserVO.class);
-		System.out.println("환영합니다 " + param.getName()+"님");
-
-		customerService.insertCustomer(param);
-
-		mciResponse.set("member",param);
-		mciResponse.setViewName("join_member_proc");
-	}
 
 }

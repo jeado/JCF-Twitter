@@ -1,0 +1,45 @@
+package jcf.edu.userManage.service;
+
+import java.util.List;
+import java.util.Map;
+
+import jcf.query.core.QueryExecutor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import jcf.edu.user.model.UserVO;
+
+@Service
+public class UserManageService {
+
+	@Autowired
+	private QueryExecutor excutor;
+
+	public List<UserVO> getAllCustomer() {
+		return excutor.queryForList("user.select", null, UserVO.class);
+		// return excutor.queryForList(CustomerQuery.selectAll, null,
+		// Customer.class);
+	}
+
+	public List<UserVO> findCustomer(Map<String, String> map) {
+		System.out.println("서비스단 findCustomer");
+		return excutor.queryForList("user.find", map, UserVO.class);
+	}
+
+	// public void insertCustomer(Customer customer){
+	// excutor.update("customer.insert", customer);
+	// // excutor.update(CustomerQuery.insertAt, customer);
+	// }
+	//
+	// public void updateCustomer(Customer customer){
+	// excutor.update("customer.update", customer);
+	// // excutor.update(CustomerQuery.updateAt, customer);
+	// }
+	//
+	// public void deleteCustomer(Customer customer){
+	// excutor.update("customer.delete", customer);
+	// // excutor.update(CustomerQuery.deleteat, customer);
+	// }
+
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="user">
+
+	<statement id="select" resultClass="jcf.edu.user.model.UserVO">
+		select * from twitter_user
+	</statement>
+
+	<statement id="find" parameterClass="java.util.Map" resultClass="jcf.edu.user.model.UserVO">
+		select * from twitter_user
+
+		<dynamic prepend = "where">
+			<isNotEmpty property = "user_id" prepend="and">
+				user_id = #user_id#
+			</isNotEmpty>
+			<isNotEmpty property = "user_name" prepend="and">
+				user_name = #name#
+			</isNotEmpty>
+		</dynamic>
+	</statement>
+
+	<insert id = "insert" parameterClass="jcf.edu.user.model.UserVO">
+		insert into twitter_user values(
+			#user_id#,
+			#user_name#,
+			#user_email#
+		)
+	</insert>
+
+	<update id = "update" parameterClass="com.dukeShop.model.Customer">
+		update twitter_user set
+			user_id = #user_id#,
+			user_name = #user_name#,
+			user_email = #user_email#
+
+		where id = #id#
+	</update>
+
+	<statement id="delete" parameterClass="com.dukeShop.model.Customer">
+		delete from twitter_user where id = #id#
+	</statement>
+</sqlMap>
