@@ -8,13 +8,13 @@ public class SessionUtil {
 	public static void addUser(UserVO userVO){
 		MciRequestContextHolder.get().getHttpServletRequest().getSession().setAttribute("LoginUser", userVO);
 	}
-	
+
 	public static UserVO getCurrentUser() {
-		
+
 		UserVO currentUser = (UserVO) MciRequestContextHolder.get().getHttpServletRequest().getSession().getAttribute("LoginUser");
-		
+
 		if (currentUser == null) throw new RuntimeException("로그인이 정상적으로 이루어 지지 않았습니다.");
-		
-		return currentUser;
+
+		return currentUser;//현재 로그인된 사용자의 UserVO를 알려준다.
 	}
 }

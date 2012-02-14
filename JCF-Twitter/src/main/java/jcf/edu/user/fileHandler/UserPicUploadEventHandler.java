@@ -18,16 +18,14 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 		return "userpic";
 	}
 
-	public void postprocess(String folder, MultiPartInfo info,
-			PersistenceManager persistenceManager) {
+	public void postprocess(String folder, MultiPartInfo info, PersistenceManager persistenceManager) {
 	}
 
 	public String createFileNameIfAccepted(String folder, FileInfo fileInfo) {
 		return fileInfo.getFieldName();
 	}
 
-	public void prepareStorage(PersistenceManager persistenceManager,
-			String folder) {
+	public void prepareStorage(PersistenceManager persistenceManager, String folder) {
 	}
 
 }
