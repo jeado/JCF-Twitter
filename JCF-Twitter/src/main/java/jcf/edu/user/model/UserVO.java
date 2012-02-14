@@ -29,7 +29,7 @@ public class UserVO {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		UserVO compareToObj = (UserVO) obj;
@@ -45,5 +45,5 @@ public class UserVO {
 		return "UserVO [userId=" + userId + ", " + "userName=" + userName
 				+ ", userRole=" + userEmail + "]";
 	}
-
 }
+
