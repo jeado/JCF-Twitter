@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+
+<sqlMap namespace="pic">
+
+	<statement id="select" parameterClass="jcf.edu.user.model.PicVO" resultClass="jcf.edu.user.model.PicVO">
+		select * from TWITTER_USER_PIC
+		where USER_ID=#userId#
+	</statement>
+	
+	
+	<insert id="insert" parameterClass="jcf.edu.user.model.PicVO">
+		insert into TWITTER_USER_PIC values(
+		#fileUuid#,
+		#fileName#,
+		#filePath#,
+		#userId#
+		)
+	</insert>
+	
+		
+	<statement id="update" parameterClass="jcf.edu.user.model.PicVO">
+	
+		update TWITTER_USER_PIC 
+		set FILE_UUID = #fileUuid#
+		where USER_ID = #userId#
+		
+	</statement>
+	
+
+	<statement id="delete" parameterClass="jcf.edu.user.model.PicVO">
+		delete from TWITTER_USER_PIC where USER_ID=#userId#
+	</statement>
+
+
+</sqlMap>

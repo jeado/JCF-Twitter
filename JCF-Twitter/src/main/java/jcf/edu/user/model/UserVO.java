@@ -46,4 +46,16 @@ public class UserVO {
 				+ ", userRole=" + userEmail + "]";
 	}
 
+	public UserVO(String userId, String userName, String userEmail) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userEmail = userEmail;
+	}
+
+	public UserVO() {
+		super();
+	}
+	
+	
 }

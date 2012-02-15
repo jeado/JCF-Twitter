@@ -1,5 +1,5 @@
 <%@page import="jcf.edu.user.model.UserVO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
@@ -48,6 +48,8 @@ $(document).ready(function(){
 <div id="page-outer">
 <div id="page-container" class="page-container  home-container">
 <div class="main-content" style="min-height: 396px; ">
+
+
 	<div class ="page-header home-header">
 		<form  name="tweetForm" action="<%=request.getContextPath()%>/tweet/insert" method="post" >
 		<div class="tweet-box condensed">
@@ -61,6 +63,8 @@ $(document).ready(function(){
 		  <input type="submit"  class="btn" value="저장" >
 	 	 </form>
 	</div>
+	
+	
 	<div class="stream-manager js-stream-manager-container">
 		<div class="stream-title"><h2>Favorites, follows, retweets, and more by people you follow</h2></div>
 		<div class="stream-container">
