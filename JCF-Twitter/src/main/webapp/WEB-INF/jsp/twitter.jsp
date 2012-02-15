@@ -1,5 +1,5 @@
 <%@page import="jcf.edu.user.model.UserVO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
@@ -25,7 +25,7 @@ $(document).ready(function(){
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> 
+			</a>
 			<a class="brand" href="<%=request.getContextPath()%>/login">JCF-Twitter</a>
 			<div class="nav-collapse">
 				<ul class="nav">
@@ -105,7 +105,7 @@ $(document).ready(function(){
 		      <span class="dashboard-component-title">Who to follow</span>
 		    </h2>
 		    <ul class="js-recommended-followers recommended-followers user-rec-component" data-section-id="wtf">
-		    
+
 		    <c:forEach items="${userList}" var="uList">
 		    	<li class="user-small-list-item js-actionable-user " data-user-id="39674432" data-feedback-token="1">
 		    		<a href="<%=request.getContextPath()%>/tweet/${uList.userId}" class="js-recommend-link user-profile-link user-thumb"><img src="<%=request.getContextPath()%>/file/fileView/${uList.userId}" alt="${uList.userId}" class="js-action-profile-avatar user-content-image"></a>
@@ -115,7 +115,7 @@ $(document).ready(function(){
 			        	<span class="user-full-name">${uList.userName}</span>
 		        		<span class="js-follow-state user-follow-state">
 		      			  <span class="dot">·</span>
-		      			  <c:set var="temp">0</c:set> 
+		      			  <c:set var="temp">0</c:set>
 		      			  <c:forEach	items="${followingList}" var="following">
 							<c:if test="${uList.userId == following.followingId}">
 								<a href="<%=request.getContextPath()%>/unfollow?id=${uList.userId}" class="user-follow-link js-action-follow js-link unfollow-action" >Unfollow</a>
@@ -126,7 +126,7 @@ $(document).ready(function(){
 							</c:if>
 					    </span>
 					   </span>
-				   	   <!-- 
+				   	   <!--
 				   	   	<div class="user-meta">
 						Followed by <span class="user"><a class="user-profile-link pretty-link" data-user-id="23556991" href="/#!/joomanba" title="Jang Eui Jin"><s>@</s><b>joomanba</b></a></span> and <a href="/#!/sh_domac/followers_you_follow" class="pretty-link"><b>others</b></a>
 				       </div>
@@ -134,7 +134,7 @@ $(document).ready(function(){
 			  		</div>
 		    	</li>
 		    </c:forEach>
-		    
+
 		    </ul>
 			</div>
 			<hr class="component-spacer">

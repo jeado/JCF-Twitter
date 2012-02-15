@@ -2,16 +2,15 @@ package jcf.edu.user.fileHandler;
 
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import jcf.edu.login.util.SessionUtil;
 import jcf.edu.twitter_user_pic.model.PicVO;
 import jcf.edu.twitter_user_pic.service.PicService;
-import jcf.edu.user.model.UserVO;
 import jcf.upload.FileInfo;
 import jcf.upload.MultiPartInfo;
 import jcf.upload.handler.UploadEventHandler;
@@ -33,17 +32,20 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 	}
 
 	public void postprocess(String folder, MultiPartInfo info, PersistenceManager persistenceManager) {
-		Map<String, Object> attributes = info.getAttributes();
-		String userFile = (String)attributes.get("userFile");
+//		Map<String, Object> attributes = info.getAttributes();
+//		String userFile = (String)attributes.get("userFile");
 
 		List<FileInfo> fileInfos = info.getFileInfos();
 		FileInfo fileInfo = fileInfos.get(0);//end
 
 		String callName = fileInfo.getCallName();//start1 긴거(DB에 저장)
-		String name = fileInfo.getName();//start2 실제
+		String fileName = fileInfo.getName();//start2 실제
+		String userfolder = fileInfo.getFolder();
+		String crntUserId = SessionUtil.getCurrentUser().getUserId();
 
 //		System.out.println("<postprocess> PID: " + pid + " CallName: " + callName + " name: " + name);
-		PicVO picvo = null;
+
+		PicVO picvo = new PicVO(callName, fileName, userfolder, crntUserId);
 
 		picService.insertPic(picvo);
 	}

@@ -17,23 +17,23 @@ public class PicService {
 	private QueryExecutor excutor;
 
 	public List<PicVO> getAllPic(){
-		return excutor.queryForList("twitter_user_following.select", null, PicVO.class);
+		return excutor.queryForList("pic.select", null, PicVO.class);
 	}
 
 	public List<PicVO> findPic(Map<String, String> map) {
-		return excutor.queryForList("twitter_user_following.find", map, PicVO.class);
+		return excutor.queryForList("pic.find", map, PicVO.class);
 	}
 
 	public void insertPic(PicVO picvo){
-		excutor.update("twitter_user_following.insert", picvo);
+		excutor.update("pic.insert", picvo);
 	}
 
 	public void updatePic(PicVO picvo){
-		excutor.update("twitter_user_following.update", picvo);
+		excutor.update("pic.update", picvo);
 	}
 
 	public void deletePic(PicVO picvo){
-		excutor.update("twitter_user_following.delete", picvo);
+		excutor.update("pic.delete", picvo);
 	 }
 
 }
