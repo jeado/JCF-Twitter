@@ -39,8 +39,9 @@
 	<select id="selectTweets" parameterClass="jcf.edu.user.model.UserVO" resultClass="jcf.edu.tweet.model.TweetVO">
 		select * from twitter_tweet
 		where register = #userId# or
-		register = (select following_id from twitter_user_following
+		register in (select following_id from twitter_user_following
 					where user_id = #userId#)
+		order by reg_date desc
 	</select>
 
 	<delete id="deleteTweet" parameterClass="jcf.edu.tweet.model.TweetVO">

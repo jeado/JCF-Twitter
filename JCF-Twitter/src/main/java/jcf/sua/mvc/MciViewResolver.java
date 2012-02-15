@@ -47,6 +47,8 @@ public class MciViewResolver implements ViewResolver, Ordered {
 			view = viewMap.get(viewName);
 		}
 
+		System.out.println("#######################"+viewName);
+
 		if(view == null){
 			if (MciRequestContextHolder.get().isMciRequest() && viewName == null) {
 				ModelAndView modelAndView = MciRequestContextHolder.get().getDataSetAccessor().getModelAndView();
