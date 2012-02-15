@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jcf.edu.twitter_tweet.model.TweetVO;
+import jcf.edu.twitter_tweet.service.TweetService;
 import jcf.edu.twitter_user_following.model.FollowingVO;
 import jcf.edu.twitter_user_following.service.FollowingService;
 import jcf.edu.user.model.UserVO;
@@ -27,8 +29,8 @@ public class LoginController {
 	private UserService userService;
 	@Autowired
 	private FollowingService followingService;
-
-	private SessionUtil sessionutil;
+	@Autowired
+	private TweetService tweetService;
 
 	@RequestMapping("login")
 	public void showLoginView(MciRequest mciRequest, MciResponse mciResponse){
@@ -70,30 +72,37 @@ public class LoginController {
 	public void showTweetView(MciRequest mciRequest, MciResponse mciResponse){
 		System.out.println("나 tweet 매핑");
 
-		String crntUserId = SessionUtil.getCurrentUser().getUserId();
-		System.out.println("crntUserId : " + crntUserId);
-
-		Map param2 = new HashMap();
-		param2.put("userId", crntUserId);
-
-		List<UserVO> getAllUser = userService.getAllFollowerUser(param2);
-		List<FollowingVO>findFollower = followingService.findFollower(param2);
-
-		String uid = null;
-
 		try{
-			uid = SessionUtil.getCurrentUser().getUserId();
-			System.out.println("로그인한 상태다잉 : "+ uid);
+			String crntUserId = SessionUtil.getCurrentUser().getUserId();
+			System.out.println("crntUserId : " + crntUserId);
+			Map param2 = new HashMap();
+			param2.put("userId", crntUserId);
 
-			mciResponse.setList("followingList", findFollower);
-			mciResponse.setList("userList", getAllUser);
+			List<UserVO> getAllUser = userService.getAllFollowerUser(param2);
 
-			mciResponse.setViewName("twitter");
-		}catch (Exception e){
-			System.out.println("로긴부터 해라잉~");
-			mciResponse.setViewName("login");
+			List<FollowingVO>findFollower = followingService.findFollower(param2);
+
+			List<TweetVO>getAllTweet = tweetService.getAllTweet(param2);
+
+			String uid = null;
+
+			try{
+				uid = SessionUtil.getCurrentUser().getUserId();
+				System.out.println("로그인한 상태다잉 : "+ uid);
+
+				mciResponse.setList("tweetList", getAllTweet);
+				mciResponse.setList("followingList", findFollower);
+				mciResponse.setList("userList", getAllUser);
+				mciResponse.set("currentUser", SessionUtil.getCurrentUser());
+				mciResponse.setViewName("twitter");
+			}catch (Exception e1){
+				System.out.println("로긴부터 해라잉~1");
+				mciResponse.setViewName("login");
+			}
+		}catch (Exception e2){
+			System.out.println("로긴부터 해라잉~2");
+			mciResponse.setViewName("redirect:login");
 		}
-
 	}
 
 }

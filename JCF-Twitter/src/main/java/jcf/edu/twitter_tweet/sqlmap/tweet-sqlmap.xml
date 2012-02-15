@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="tweet">
+<typeAlias alias="TweetModel" type="jcf.edu.twitter_tweet.model.TweetVO"/>
+
+<statement id="select" resultClass="TweetModel">
+	SELECT * FROM twitter_tweet
+	WHERE register = #userId# OR
+	register IN (SELECT following_id FROM twitter_user_following
+	WHERE user_id = #userId#)
+	ORDER BY reg_date DESC
+</statement>
+
+<insert id="insert" parameterClass="TweetModel">
+
+  INSERT INTO twitter_tweet
+  (
+  id,register,tweets,reg_date
+  )
+  VALUES(
+  tweet_sequence.nextval, #register#, #tweets#, sysdate
+  )
+
+</insert>
+
+<delete id="delete" parameterClass="TweetModel">
+
+  DELETE FROM twitter_tweet WHERE id = #id#
+
+</delete>
+
+</sqlMap>

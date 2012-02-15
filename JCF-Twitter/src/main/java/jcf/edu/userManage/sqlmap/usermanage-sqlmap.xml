@@ -4,27 +4,27 @@
 <sqlMap namespace="user">
 <typeAlias alias="UserModel" type="jcf.edu.user.model.UserVO"/>
 
-<statement id="select" resultClass="jcf.edu.user.model.UserVO">
+<statement id="select" resultClass="UserModel">
 	select * from twitter_user
 </statement>
 
-<statement id="select_not_include_me" resultClass="jcf.edu.user.model.UserVO">
+<statement id="select_not_include_me" resultClass="UserModel">
 	select * from twitter_user where user_id != #userId#
 </statement>
 
-<statement id="find" parameterClass="java.util.Map"	resultClass="jcf.edu.user.model.UserVO">
+<statement id="find" parameterClass="java.util.Map"	resultClass="UserModel">
 	select * from twitter_user
 	<dynamic prepend="where">
 		<isNotEmpty property="userId" prepend="and">
-			user_id= #userId#
+			user_id = #userId#
 		</isNotEmpty>
 	   	<isNotEmpty property="userName" prepend="and">
-			user_name= #userName#
+			user_name = #userName#
 		</isNotEmpty>
 	</dynamic>
 </statement>
 
-<statement id="findId" parameterClass="java.lang.String" resultClass="jcf.edu.user.model.UserVO">
+<statement id="findId" parameterClass="java.lang.String" resultClass="UserModel">
 	select * from twitter_user
 	<dynamic prepend="where">
 		<isNotEmpty property="userId" prepend="and">
@@ -33,7 +33,7 @@
 	</dynamic>
 </statement>
 
-<insert id="insert" parameterClass="jcf.edu.user.model.UserVO">
+<insert id="insert" parameterClass="UserModel">
 
   INSERT INTO twitter_user
   (
@@ -45,14 +45,14 @@
 
 </insert>
 
-<update id="update" parameterClass="jcf.edu.user.model.UserVO">
+<update id="update" parameterClass="UserModel">
 
   UPDATE twitter_user SET user_name=#userName#, user_email=#userEmail#
   WHERE user_id=#userId#
 
 </update>
 
-<delete id="delete" parameterClass="jcf.edu.user.model.UserVO">
+<delete id="delete" parameterClass="UserModel">
 
   DELETE FROM twitter_user where user_id=#userId#
 

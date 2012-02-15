@@ -6,6 +6,7 @@ import java.util.Map;
 
 import jcf.edu.twitter_user_pic.service.PicService;
 import jcf.edu.twitter_user_pic.model.PicVO;
+import jcf.edu.user.service.UserService;
 import jcf.sua.mvc.MciRequest;
 import jcf.sua.mvc.MciResponse;
 import jcf.upload.FileInfo;
@@ -21,16 +22,21 @@ public class PicController {
 	@Autowired
 	private PicService picService;
 
-	@RequestMapping("file/viewFile/{userId}")
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping("file/fileView/{userId}")
 	public void viewFile(MciRequest mciRequest, MciResponse mciResponse, @PathVariable String userId){
+		System.out.println("file/viewFile/{userId}실행");
 		Map map = new HashMap();
 		map.put("userId", userId);
-		List<PicVO> pic = picService.findPic(map);
+		List<PicVO> pic = picService.findPicList(map);
 
-		String fileName = pic.get(0).getFileName();
+		String fileUuid = pic.get(0).getFileUuid();
 		String filePath = pic.get(0).getFilePath();
 
-		mciResponse.setDownloadFile(new FileInfo(filePath, fileName));
-		System.out.println("<viewFile>fileName :" + fileName + "filePath :" + filePath);
+		System.out.println("<fileView>fileUuid : " + fileUuid + " filePath : " + filePath);
+
+		mciResponse.setDownloadFile(new FileInfo(filePath, fileUuid));
 	}
 }

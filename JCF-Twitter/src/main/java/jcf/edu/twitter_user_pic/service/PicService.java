@@ -20,8 +20,12 @@ public class PicService {
 		return excutor.queryForList("pic.select", null, PicVO.class);
 	}
 
-	public List<PicVO> findPic(Map<String, String> map) {
+	public List<PicVO> findPicList(Map<String, String> map) {
 		return excutor.queryForList("pic.find", map, PicVO.class);
+	}
+
+	public List<PicVO> findPic(PicVO picvo){
+	    return excutor.queryForList("pic.findpic", picvo, PicVO.class);
 	}
 
 	public void insertPic(PicVO picvo){
@@ -34,6 +38,6 @@ public class PicService {
 
 	public void deletePic(PicVO picvo){
 		excutor.update("pic.delete", picvo);
-	 }
+	}
 
 }

@@ -2,12 +2,13 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace="pic">
+<typeAlias alias="PicModel" type="jcf.edu.twitter_user_pic.model.PicVO"/>
 
-<statement id="select" resultClass="jcf.edu.twitter_user_pic.model.PicVO">
+<statement id="select" resultClass="PicModel">
 	select * from twitter_user_pic
 </statement>
 
-<statement id="find" parameterClass="java.util.Map"	resultClass="jcf.edu.twitter_user_pic.model.PicVO">
+<statement id="find" parameterClass="java.util.Map"	resultClass="PicModel">
 	select * from twitter_user_pic
 	<dynamic prepend="where">
 		<isNotEmpty property="userId" prepend="and">
@@ -16,7 +17,11 @@
 	</dynamic>
 </statement>
 
-<insert id="insert" parameterClass="jcf.edu.twitter_user_pic.model.PicVO">
+<statement id="findpic" resultClass="PicModel">
+	select * from twitter_user_pic where user_id= #userId#
+</statement>
+
+<insert id="insert" parameterClass="PicModel">
 
   INSERT INTO twitter_user_pic
   (
@@ -28,7 +33,14 @@
 
 </insert>
 
-<delete id="delete" parameterClass="jcf.edu.twitter_user_pic.model.PicVO">
+<update id="update" parameterClass="PicModel">
+
+  UPDATE twitter_user_pic SET file_uuid = #fileUuid#, file_name = #fileName#, file_path = #filePath#, user_id = #userId#
+  WHERE user_id=#userId#
+
+</update>
+
+<delete id="delete" parameterClass="PicModel">
 
   DELETE FROM twitter_user_pic where user_id = #userId#
 

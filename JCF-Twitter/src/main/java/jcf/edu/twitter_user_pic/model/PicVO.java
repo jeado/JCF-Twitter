@@ -7,6 +7,17 @@ public class PicVO {
 	private String filePath;
 	private String userId;
 
+	public PicVO(String fileUuid, String fileName, String filePath,	String userId) {
+		super();
+		this.fileUuid = fileUuid;
+		this.fileName = fileName;
+		this.filePath = filePath;
+		this.userId = userId;
+	}
+
+
+	public PicVO() {
+	}
 
 	public String getFileUuid() {
 		return fileUuid;
@@ -47,17 +58,4 @@ public class PicVO {
 		this.userId = userId;
 	}
 
-
-	public PicVO(String fileUuid, String fileName, String filePath,
-			String userId) {
-		super();
-		this.fileUuid = fileUuid;
-		this.fileName = fileName;
-		this.filePath = filePath;
-		this.userId = userId;
-	}
-
-
-	public PicVO() {
-	}
 }
