@@ -51,7 +51,9 @@ public class UserController {
 	@RequestMapping("loginHandle")
 	public void loginHandle (MciRequest mciRequest, MciResponse mciResponse){
 		UserVO user = mciRequest.getParam(UserVO.class);
+		System.out.println("-------------------"+user);
 		List<UserVO> userList = userService.getUser(user);
+		System.out.println("-++++++++++++++++++++"+userList);
 
 		if(!userList.isEmpty()){
 			SessionUtil.addUser(userList.get(0));

@@ -61,7 +61,10 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 		{
 			picService.insertPhoto(pic);
 		}else{
-			picService.updatePhoto(pic);
+			if(userFile!=null)
+			{
+				picService.updatePhoto(pic);
+			}
 		}
 
 	}
