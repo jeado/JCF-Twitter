@@ -56,15 +56,12 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 		pic.setFileUuid(callName);
 		pic.setFilePath("userpic");
 		pic.setUserId(userId);
-
+		System.out.println("8888888888888888"+userFile);
 		if((picService.selectPhoto(pic))==null)
 		{
 			picService.insertPhoto(pic);
 		}else{
-			if(userFile!=null)
-			{
 				picService.updatePhoto(pic);
-			}
 		}
 
 	}
