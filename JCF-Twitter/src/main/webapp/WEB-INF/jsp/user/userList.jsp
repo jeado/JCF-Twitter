@@ -49,7 +49,7 @@ body {
 <body>
 <div class="container">
 	<div class="row">
-		<div class="offset3 well form-search>
+		<div class="offset3 well form-search">
 			<form method="post" action="<%=request.getContextPath()%>/user/findUsers2">
 				<input type="text" name="userId" placeholder="사용자 아이디"> 
 				<input type="text" name="userName" placeholder="사용자 이름">
