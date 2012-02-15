@@ -11,4 +11,15 @@
 		)
 </insert>
 
+	<statement id="find" parameterClass="jcf.edu.user.model.PicVO"
+		resultClass="jcf.edu.user.model.PicVO">
+
+		select * from twitter_User_Pic where user_Id=#userId#
+
+</statement>
+	<statement id="update" parameterClass="jcf.edu.user.model.PicVO">
+		update twitter_User_Pic set file_uuid=#fileUuid#,
+		file_name=#fileName#, file_path=#filePath# where user_Id=#userId#
+	</statement>
+
 </sqlMap>

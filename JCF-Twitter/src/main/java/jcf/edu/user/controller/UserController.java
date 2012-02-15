@@ -10,7 +10,6 @@ import jcf.edu.user.service.UserService;
 import jcf.sua.mvc.MciRequest;
 import jcf.sua.mvc.MciResponse;
 
-import org.apache.jasper.tagplugins.jstl.core.Redirect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 	@Autowired
 	private UserService userservice;
+	
 
 	@RequestMapping("/login")
 	public void login(MciRequest mciRequest, MciResponse mciResponse) {
@@ -32,14 +32,20 @@ public class UserController {
 	@RequestMapping("loginHandle")
 	public void loginProcess(MciRequest mciRequest, MciResponse mciResponse) {
 		Map param = mciRequest.getParam();
-
+		
 		List<UserVO> findCustomer = userservice.findCustomer(param);
 
 		UserVO userVO = findCustomer.get(0);
+
+	
 		System.out.println(userVO.getUserName());
 		SessionUtil.addUser(userVO);
 		mciResponse.set("currentUser", userVO);
-		mciResponse.setViewName("twitter");
+		
+		List<UserVO> findCustomer2 = userservice.findCustomer2(userVO);
+		
+		mciResponse.setList("userList", findCustomer2);
+		mciResponse.setViewName("redirect:/tweet");
 
 	}
 
@@ -91,8 +97,16 @@ public class UserController {
 	public void insertUser(MciRequest mciRequest, MciResponse mciResponse) {
 		UserVO param = mciRequest.getParam(UserVO.class);
 		userservice.insertUser(param);
-		mciResponse.setViewName("redirect:../");
+		mciResponse.setViewName("redirect:/login");
 		
 	}
+	@RequestMapping("/user/updateUser")
+	public void updateUser(MciRequest mciRequest, MciResponse mciResponse) {
+		UserVO param = mciRequest.getParam(UserVO.class);
+		userservice.updateUser(param);
+		mciResponse.setViewName("redirect:/login");
+		
+	}
+	
 		
 }

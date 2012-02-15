@@ -39,9 +39,9 @@ public class UserTest {
 	}
 	@Test
 	public void 회원_검색테스트() {
-		Map<String, String> map= new HashMap<String, String>();
-		map.put("userId", "spike44");
-		List<UserVO> findCustomer = userservice.findCustomer(map);
+		UserVO uu;
+		uu=new UserVO();
+		List<UserVO> findCustomer = userservice.findCustomer3(uu);
 		
 		for(UserVO c : findCustomer) {
 			System.out.println(c.getUserName());

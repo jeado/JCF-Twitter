@@ -22,12 +22,20 @@ public class UserService {
 		
 	}
 	
+	public List<UserVO> findCustomer2(UserVO userVO) {
+		
+		return dao.queryForList("user.find2",userVO,UserVO.class);
+		
+	}
+	
 	public void insertUser(UserVO user) {
 		dao.update("user.insert", user);
 	}
 	public void deleteUser(UserVO user) {
 		dao.update("user.delete", user);
 	}
-	
+	public void updateUser(UserVO user) {
+		dao.update("user.update", user);
+	}
 
 }

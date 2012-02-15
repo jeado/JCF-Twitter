@@ -15,10 +15,6 @@ public class FollowingVO {
 	public void setFollowingId(String followingId) {
 		this.followingId = followingId;
 	}
-	public FollowingVO(String userId, String followingId) {
-		super();
-		this.userId = userId;
-		this.followingId = followingId;
-	}
+
 
 }

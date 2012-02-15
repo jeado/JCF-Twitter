@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="tweet">
+
+	<insert id="insert" parameterClass="jcf.edu.user.model.TweetVO">
+		insert into twitter_Tweet
+		values(
+		twitter_tweet_sequence.nextval,
+		#register#,
+		#tweets#,
+		sysdate
+		)
+	</insert>
+	<statement id="find" parameterClass="jcf.edu.user.model.FollowingVO"
+		resultClass="jcf.edu.user.model.TweetVO">
+
+		select * from twitter_tweet where register = #userId# or
+		register in (select following_id from twitter_user_following
+		where user_id = #userId#)
+		order by reg_date desc
+
+	</statement>
+
+	<statement id="delete" parameterClass="jcf.edu.user.model.TweetVO">
+		delete from twitter_tweet where id=#id#
+	</statement>
+
 </sqlMap>
