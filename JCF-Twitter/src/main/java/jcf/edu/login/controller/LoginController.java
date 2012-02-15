@@ -1,5 +1,6 @@
 package jcf.edu.login.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,16 +69,23 @@ public class LoginController {
 	@RequestMapping("tweet")
 	public void showTweetView(MciRequest mciRequest, MciResponse mciResponse){
 		System.out.println("나 tweet 매핑");
-		List<UserVO> getAllUser = userService.getAllUser();
-		List<FollowingVO>allFollower = followingService.getAllFollower();
-		System.out.println(allFollower.get(0).getFollowingId());
+
+		String crntUserId = SessionUtil.getCurrentUser().getUserId();
+		System.out.println("crntUserId : " + crntUserId);
+
+		Map param2 = new HashMap();
+		param2.put("userId", crntUserId);
+
+		List<UserVO> getAllUser = userService.getAllFollowerUser(param2);
+		List<FollowingVO>findFollower = followingService.findFollower(param2);
+
 		String uid = null;
 
 		try{
 			uid = SessionUtil.getCurrentUser().getUserId();
 			System.out.println("로그인한 상태다잉 : "+ uid);
 
-			mciResponse.setList("followingList", allFollower);
+			mciResponse.setList("followingList", findFollower);
 			mciResponse.setList("userList", getAllUser);
 
 			mciResponse.setViewName("twitter");

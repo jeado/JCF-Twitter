@@ -34,7 +34,7 @@ public class FollowingController {
 
 		 followingService.insertFollower(followingvo);
 
-		 mciResponse.setViewName("twitter");
+		 mciResponse.setViewName("redirect:tweet");
 	 }
 
 	 @RequestMapping("unfollow")
@@ -46,6 +46,6 @@ public class FollowingController {
 
 		 followingService.deleteFollower(followingvo);
 
-		 mciResponse.setViewName("twitter");
+		 mciResponse.setViewName("redirect:tweet");
 	 }
 }

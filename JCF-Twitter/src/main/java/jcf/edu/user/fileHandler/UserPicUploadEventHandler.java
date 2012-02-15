@@ -3,19 +3,29 @@ package jcf.edu.user.fileHandler;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import jcf.edu.twitter_user_pic.model.PicVO;
+import jcf.edu.twitter_user_pic.service.PicService;
 import jcf.edu.user.model.UserVO;
 import jcf.upload.FileInfo;
 import jcf.upload.MultiPartInfo;
 import jcf.upload.handler.UploadEventHandler;
 import jcf.upload.persistence.PersistenceManager;
 
+
+
 public class UserPicUploadEventHandler implements UploadEventHandler {
 
+	@Autowired
+	private PicService picService;
+
 	public long getMaxUploadSize() {
-		return 10000000;
+		return  5* 1024 * 1024; //5Mb
 	}
 
 	public String getFolder(HttpServletRequest request) {
@@ -24,22 +34,22 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 
 	public void postprocess(String folder, MultiPartInfo info, PersistenceManager persistenceManager) {
 		Map<String, Object> attributes = info.getAttributes();
-		String pid = (String)attributes.get("pid");
+		String userFile = (String)attributes.get("userFile");
 
 		List<FileInfo> fileInfos = info.getFileInfos();
 		FileInfo fileInfo = fileInfos.get(0);//end
 
-		String callName = fileInfo.getCallName();//start1
-		String name = fileInfo.getName();//start2
+		String callName = fileInfo.getCallName();//start1 긴거(DB에 저장)
+		String name = fileInfo.getName();//start2 실제
 
-		System.out.println("<postprocess> PID: " + pid + " CallName: " + callName + " name: " + name);
-		UserVO uservo = null;
+//		System.out.println("<postprocess> PID: " + pid + " CallName: " + callName + " name: " + name);
+		PicVO picvo = null;
 
-//		productService.insertProduct(product);
+		picService.insertPic(picvo);
 	}
 
 	public String createFileNameIfAccepted(String folder, FileInfo fileInfo) {
-		return fileInfo.getFieldName();
+		return UUID.randomUUID().toString();
 	}
 
 	public void prepareStorage(PersistenceManager persistenceManager, String folder) {

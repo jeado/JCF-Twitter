@@ -4,19 +4,11 @@
 <sqlMap namespace="twitter_user_following">
 
 <statement id="select" resultClass="jcf.edu.twitter_user_following.model.FollowingVO">
-	select * from twitter_user_following
+	select * from twitter_user_following where user_id not like #userId#
 </statement>
 
 <statement id="find" parameterClass="java.util.Map"	resultClass="jcf.edu.twitter_user_following.model.FollowingVO">
-	select * from twitter_user_following
-	<dynamic prepend="where">
-		<isNotEmpty property="userId" prepend="and">
-			user_id= #userId#
-		</isNotEmpty>
-	   	<isNotEmpty property="userName" prepend="and">
-			following_id= #followingId#
-		</isNotEmpty>
-	</dynamic>
+	select * from twitter_user_following where user_id = #userId#
 </statement>
 
 <insert id="insert" parameterClass="jcf.edu.twitter_user_following.model.FollowingVO">
@@ -33,7 +25,7 @@
 
 <delete id="delete" parameterClass="jcf.edu.twitter_user_following.model.FollowingVO">
 
-  DELETE FROM twitter_user_following where user_id = #userId# and
+  DELETE FROM twitter_user_following where user_id = #userId# and following_id = #followingId#
 
 </delete>
 

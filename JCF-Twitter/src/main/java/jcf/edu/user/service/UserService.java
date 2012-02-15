@@ -21,6 +21,10 @@ public class UserService {
 //		return excutor.queryForList(CustomerQuery.selectAll, null, Customer.class);
 	}
 
+	public List<UserVO> getAllFollowerUser(Map<String, String> map){
+		return excutor.queryForList("user.select_not_include_me", map, UserVO.class);
+	}
+
 	public List<UserVO> findUser(Map<String, String> map) {
 		return excutor.queryForList("user.find", map, UserVO.class);
 	}
