@@ -16,12 +16,12 @@ public class TweetService {
 	private QueryExecutor dao;
 
 	public void insertTweet(TweetVO param) {
-		System.out.println("SERVICE TEST ______"+param);
+		//System.out.println("SERVICE TEST ______"+param);
 		dao.update("tweet.insert", param);
 	}
 
 	public List<TweetVO> getTweet(TweetVO param) {
-		System.out.println("SERVICE GET TWEET TEST ______"+param);
+		//System.out.println("SERVICE GET TWEET TEST ______"+param);
 		return dao.queryForList("tweet.find", param, TweetVO.class);
 	}
 

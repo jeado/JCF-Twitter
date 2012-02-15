@@ -1,7 +1,5 @@
 package jcf.edu.tweet.model;
 
-import java.util.Date;
-
 public class TweetVO {
 	private String id;
 	private String register;

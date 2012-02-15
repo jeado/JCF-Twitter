@@ -45,7 +45,6 @@ public class TweetController {
 
 			FollowVO follow = new FollowVO();
 			follow.setUserId(SessionUtil.getCurrentUser().getUserId());
-
 			mciResponse.set("currentUser", SessionUtil.getCurrentUser());
 
 			List<TweetVO> tweetList = tweetService.getTweet(tweet);

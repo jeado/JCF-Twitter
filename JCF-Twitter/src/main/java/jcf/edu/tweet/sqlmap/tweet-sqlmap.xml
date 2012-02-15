@@ -17,14 +17,12 @@
 			)
 	</insert>
 
-	<statement id = "find" parameterClass="java.util.Map"  resultClass= "jcf.edu.tweet.model.TweetVO">
+	<statement id = "find" parameterClass="jcf.edu.tweet.model.TweetVO"  resultClass= "jcf.edu.tweet.model.TweetVO">
 		SELECT * FROM TWITTER_TWEET
-
-		<dynamic prepend="where">
-			<isNotEmpty property="register" prepend="and">
-				register  = #register#
-			</isNotEmpty>
-		</dynamic>
+		WHERE register IN ( SELECT FOLLOWING_ID
+     	FROM TWITTER_USER_FOLLOWING
+     	WHERE USER_ID=#register# ) OR REGISTER=#register#
+     	ORDER BY REG_DATE DESC
 	</statement>
 
 	<delete id="delete" parameterClass="jcf.edu.tweet.model.TweetVO">
