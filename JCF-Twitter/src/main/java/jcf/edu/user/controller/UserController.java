@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import jcf.edu.login.util.SessionUtil;
+import jcf.edu.pic.model.PicVO;
 import jcf.edu.user.model.UserVO;
 import jcf.edu.user.service.UserService;
 import jcf.sua.mvc.MciRequest;
@@ -35,10 +36,6 @@ public class UserController {
 		mciResponse.setViewName("redirect:/user/findUsers");
 	}
 
-	public void regPic (MciRequest mciRequest, MciResponse mciResponse){
-
-		}
-
 //--------------------------------------로그인-------------------------------------------
 	@RequestMapping("login")
 	public void login(MciRequest mciRequest, MciResponse mciResponse){
@@ -49,11 +46,8 @@ public class UserController {
 	public void loginHandle (MciRequest mciRequest, MciResponse mciResponse){
 		Map param = mciRequest.getParam();
 		List<UserVO> user = userService.getUser(param);
-		System.out.println("TEST-----------------------"+ user);
 
 		if(!user.isEmpty()){
-			System.out.println("TEST111111111111-----------------------"+
-								user.get(0).getUserId());
 			SessionUtil.addUser(user.get(0));
 			mciResponse.setViewName("twitter");
 		}else {

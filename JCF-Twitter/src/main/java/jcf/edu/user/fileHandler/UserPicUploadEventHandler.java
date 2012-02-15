@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import jcf.edu.pic.model.PicVO;
 import jcf.edu.user.service.UserService;
 import jcf.upload.FileInfo;
 import jcf.upload.MultiPartInfo;
@@ -50,8 +51,14 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 		System.out.println("---------------------파일 테스트---------------------");
 		System.out.println("Original Name: "+name+" .CallName: "+callName);
 
+		PicVO pic = new PicVO();
+		pic.setFileName(name);
+		pic.setFileUuid(callName);
+		pic.setFilePath("userpic");
+		pic.setUserId(userId);
+
 	   //UserService userService = null;
-		userService.insertPhoto (attributes);
+		userService.insertPhoto(pic);
 
 		//Product product = null;
 		//productService.insertProduct(product);
@@ -61,7 +68,7 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 		//난수를 발생시켜서 중복되는 파일값이 없도록 한다.
 		//return UUID.randomUUID().toString();
 
-		return fileInfo.getFieldName();
+		return UUID.randomUUID().toString();
 	}
 
 	public void prepareStorage(PersistenceManager persistenceManager,
