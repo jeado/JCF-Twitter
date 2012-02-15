@@ -18,20 +18,20 @@ public class UserController {
 
 	@Autowired
 	private LoginService loginService;
-
-	@RequestMapping("join")
-	public void showJoinView(MciRequest mciRequest, MciResponse mciResponse){
-		mciResponse.setViewName("join_member");
-	}
-
-	@SuppressWarnings("unchecked")
-	@RequestMapping("findCustomer")
-	public void findCustomer(MciRequest mciRequest, MciResponse mciResponse){
-		Map param = mciRequest.getParam();
-		List<UserVO> findCustomer = loginService.findCustomer(param);
-		mciResponse.setList("pp", findCustomer, UserVO.class);
-		mciResponse.setViewName("customer_list");
-	}
+//
+//	@RequestMapping("join")
+//	public void showJoinView(MciRequest mciRequest, MciResponse mciResponse){
+//		mciResponse.setViewName("join_member");
+//	}
+//
+//	@SuppressWarnings("unchecked")
+//	@RequestMapping("findCustomer")
+//	public void findCustomer(MciRequest mciRequest, MciResponse mciResponse){
+//		Map param = mciRequest.getParam();
+//		List<UserVO> findCustomer = loginService.findCustomer(param);
+//		mciResponse.setList("pp", findCustomer, UserVO.class);
+//		mciResponse.setViewName("customer_list");
+//	}
 
 //	@RequestMapping("JoinMember")
 //	public void joinMember(MciRequest mciRequest, MciResponse mciResponse){

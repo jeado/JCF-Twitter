@@ -1,5 +1,6 @@
 package jcf.edu.userManage.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,16 +9,18 @@ import jcf.sua.mvc.MciResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jcf.edu.user.model.UserVO;
+import jcf.edu.user.service.UserService;
 import jcf.edu.userManage.service.UserManageService;
 
 @Controller
 public class UserManageController {
 
 	@Autowired
-	private UserManageService userManageService;
+	private UserService userService;
 
 	@RequestMapping("user/findUsers")
 	public void showManageView(MciRequest mciRequest, MciResponse mciResponse) {
@@ -28,32 +31,47 @@ public class UserManageController {
 	 @RequestMapping("user/findUsers2")
 	 public void findCustomer(MciRequest mciRequest, MciResponse mciResponse){
 		 Map param = mciRequest.getParam();
-		 List<UserVO> findCustomer = userManageService.findCustomer(param);
-		 System.out.println("컨트롤러단:findCustomer호출");
+		 List<UserVO> findCustomer = userService.findUser(param);
 		 mciResponse.setList("userList", findCustomer, UserVO.class);
 		 mciResponse.setViewName("user/userList");
 	 }
-	//
-	// @RequestMapping("JoinMember")
-	// public void joinMember(MciRequest mciRequest, MciResponse mciResponse){
-	// Customer param = mciRequest.getParam(Customer.class);
-	// System.out.println("환영합니다 " + param.getName()+"님");
-	//
-	// customerService.insertCustomer(param);
-	//
-	// mciResponse.set("member",param);
-	// mciResponse.setViewName("join_member_proc");
-	// }
 
-	 @RequestMapping("loginHandle")
-	public void loginHandle(MciRequest mciRequest, MciResponse mciResponse){
-		UserVO param = mciRequest.getParam(UserVO.class);
-//		System.out.println("환영합니다 " + param.getName()+"님");
+	 @RequestMapping("user/info/{userId}")
+	 public void info(MciRequest mciRequest, MciResponse mciResponse, @PathVariable String userId){
+		 Map param2 = new HashMap();
+		 param2.put("userId", userId);
+		 List<UserVO> findCustomer = userService.findUser(param2);
 
-//		customerService.insertCustomer(param);
+		 mciResponse.set("user", findCustomer.get(0), UserVO.class);
+		 mciResponse.setViewName("user/userDetail");
+	 }
 
-		mciResponse.set("member",param);
-		mciResponse.setViewName("join_member_proc");
-	}
+	 @RequestMapping("user/updateUser")
+	 public void updateUser(MciRequest mciRequest, MciResponse mciResponse){
+		 UserVO param = mciRequest.getParam(UserVO.class);
+		 userService.updateUser(param);
+		 mciResponse.setViewName("redirect:/user/findUsers");
+	 }
 
+	 @RequestMapping("user/deleteUser")
+	 public void deleteUser(MciRequest mciRequest, MciResponse mciResponse){
+		 UserVO param = mciRequest.getParam(UserVO.class);
+		 userService.deleteUser(param);
+		 mciResponse.setViewName("redirect:/user/findUsers");
+	 }
+
+	 @RequestMapping("user/create.action")
+	 public void crateUser(MciRequest mciRequest, MciResponse mciResponse){
+		 mciResponse.setViewName("user/userReg");
+	 }
+
+	 @RequestMapping("user/insertUser")
+	 public void joinMember(MciRequest mciRequest, MciResponse mciResponse){
+		 UserVO param = mciRequest.getParam(UserVO.class);
+
+		 userService.insertUser(param);
+
+		 mciResponse.set("user",param);
+		 mciResponse.setViewName("redirect:/user/findUsers");
+	 }
 }

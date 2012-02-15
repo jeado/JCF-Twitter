@@ -18,4 +18,3 @@ public class SessionUtil {
 		return currentUser;//현재 로그인된 사용자의 UserVO를 알려준다.
 	}
 }
-  

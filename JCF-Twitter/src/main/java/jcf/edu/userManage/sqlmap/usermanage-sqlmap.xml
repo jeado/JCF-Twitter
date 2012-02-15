@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="user">
+
+<statement id="select" resultClass="jcf.edu.user.model.UserVO">
+	select * from twitter_user
+</statement>
+
+<statement id="find" parameterClass="java.util.Map"	resultClass="jcf.edu.user.model.UserVO">
+	select * from twitter_user
+	<dynamic prepend="where">
+		<isNotEmpty property="userId" prepend="and">
+			user_id= #userId#
+		</isNotEmpty>
+	   	<isNotEmpty property="userName" prepend="and">
+			user_name= #userName#
+		</isNotEmpty>
+	</dynamic>
+</statement>
+
+<statement id="findId" parameterClass="java.lang.String" resultClass="jcf.edu.user.model.UserVO">
+	select * from twitter_user
+	<dynamic prepend="where">
+		<isNotEmpty property="userId" prepend="and">
+			user_id= #userId#
+		</isNotEmpty>
+	</dynamic>
+</statement>
+
+<insert id="insert" parameterClass="jcf.edu.user.model.UserVO">
+
+  INSERT INTO twitter_user
+  (
+  user_id,user_name,user_email
+  )
+  VALUES(
+  #userId#,#userName#,#userEmail#
+  )
+
+</insert>
+
+<update id="update" parameterClass="jcf.edu.user.model.UserVO">
+
+  UPDATE twitter_user SET user_name=#userName#, user_email=#userEmail#
+  WHERE user_id=#userId#
+
+</update>
+
+<delete id="delete" parameterClass="jcf.edu.user.model.UserVO">
+
+  DELETE FROM twitter_user where user_id=#userId#
+
+</delete>
+
+</sqlMap>

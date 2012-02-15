@@ -17,12 +17,12 @@ public class LoginService {
 	private QueryExecutor excutor;
 
 	public List<UserVO> getAllCustomer(){
-		return excutor.queryForList("customer.select", null, UserVO.class);
+		return excutor.queryForList("user.select", null, UserVO.class);
 //		return excutor.queryForList(CustomerQuery.selectAll, null, Customer.class);
 	}
 
 	public List<UserVO> findCustomer(Map<String, String> map){
-		return excutor.queryForList("customer.find", map, UserVO.class);
+		return excutor.queryForList("user.find", map, UserVO.class);
 	}
 
 //	public void insertCustomer(Customer customer){
