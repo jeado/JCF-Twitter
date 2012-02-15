@@ -31,7 +31,7 @@ public class TweetController {
 	private FollowingService followingService;
 
 	@RequestMapping("tweet")
-	public void goTweet(MciRequest mciRequest, MciResponse mciResponse) {
+	public void goTweet(MciRequest mciRequest, MciResponse mciResponse) throws RuntimeException{
 		if (SessionUtil.getCurrentUser() == null) {
 			mciResponse.setViewName("redirect:/login");
 		} else {
