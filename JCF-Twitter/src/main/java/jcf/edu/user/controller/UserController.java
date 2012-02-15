@@ -81,8 +81,6 @@ public class UserController {
 												@PathVariable String userId){
 		UserVO user = new UserVO();
 		user.setUserId(userId);
-//		Map<String, String> map = new HashMap<String, String> ();
-//		map.put("userId", userId);
 		UserVO userDetail = userService.findUser(user);
 		mciResponse.set("user", userDetail, UserVO.class);
 		mciResponse.setViewName("user/userDetail");

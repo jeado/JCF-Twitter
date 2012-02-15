@@ -38,18 +38,19 @@ public class FollowController {
 		follow.setUserId(userId);
 
 		followService.insertFollow(follow);
+		mciResponse.setViewName("redirect:/tweet");
+	}
 
-		mciResponse.set("currentUser", SessionUtil.getCurrentUser());
+	@RequestMapping("/unfollow")
+	public void unfollowUser (MciRequest mciRequest, MciResponse mciResponse){
+		String followingId = mciRequest.getParam("id");
+		String userId = SessionUtil.getCurrentUser().getUserId();
 
-		List<FollowVO> followList = followService.getFollows(follow);
-		mciResponse.set("followList", followList);
+		FollowVO follow = new FollowVO();
+		follow.setFollowingId(followingId);
+		follow.setUserId(userId);
 
-		//List<TweetVO> tweet = mciRequest.getParam("tweetList");
-		//mciResponse.setList("tweetList", tweet, TweetVO.class);
-
-		List<UserVO> userList = userService.getUserList(SessionUtil.getCurrentUser());
-		mciResponse.setList("userList", userList, UserVO.class);
-
-		mciResponse.setViewName("twitter");
+		followService.deleteFollow(follow);
+		mciResponse.setViewName("redirect:/tweet");
 	}
 }

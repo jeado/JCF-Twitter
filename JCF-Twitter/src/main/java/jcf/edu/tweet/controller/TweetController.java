@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jcf.edu.follow.model.FollowVO;
+import jcf.edu.follow.service.FollowService;
 import jcf.edu.login.util.SessionUtil;
 import jcf.edu.tweet.model.TweetVO;
 import jcf.edu.tweet.service.TweetService;
@@ -25,24 +27,36 @@ public class TweetController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	FollowService followService;
+
 
 //-----------------------------------------트위터 페이지 열람 ---------------------------------
 	@RequestMapping ("tweet")
 	public void tweetRedirect (MciRequest mciRequest, MciResponse mciResponse){
-		System.out.println("타나?");
-		TweetVO param = mciRequest.getParam(TweetVO.class);
-		if (SessionUtil.getCurrentUser().getUserId().isEmpty()){
+
+		if ((SessionUtil.getCurrentUser())==null){
 			System.out.println("세션이 없어요");
 			mciResponse.setViewName("login");
 		}else{
-			param.setRegister(SessionUtil.getCurrentUser().getUserId());
+			TweetVO tweet = new TweetVO();
+			tweet.setTweets(mciRequest.getParam("tweets"));
+			tweet.setRegister(SessionUtil.getCurrentUser().getUserId());
+
+			FollowVO follow = new FollowVO();
+			follow.setUserId(SessionUtil.getCurrentUser().getUserId());
+
 			mciResponse.set("currentUser", SessionUtil.getCurrentUser());
 
-			List<TweetVO> tweet = tweetService.getTweet(param);
+			List<TweetVO> tweetList = tweetService.getTweet(tweet);
 			List<UserVO> userList = userService.getUserList(SessionUtil.getCurrentUser());
+			List<FollowVO> followList = followService.getFollows(follow);
+
+			System.out.println("--------FOLLOW LIST----------"+followList);
+			mciResponse.setList("followingList", followList, FollowVO.class);
 			mciResponse.setList("userList", userList, UserVO.class);
-			mciResponse.setList("tweetList", tweet, TweetVO.class);
-			mciResponse.setViewName("redirect:/tweet");
+			mciResponse.setList("tweetList", tweetList, TweetVO.class);
+			mciResponse.setViewName("twitter");
 		}
 	}
 

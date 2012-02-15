@@ -25,6 +25,6 @@
 	</statement>
 
 	<delete id="delete" parameterClass="jcf.edu.follow.model.FollowVO">
-		DELETE FROM TWITTER_USER WHERE user_id = #userId# AND following_id = #followingId#
+		DELETE FROM TWITTER_USER_FOLLOWING WHERE user_id = #userId# AND following_id = #followingId#
 	</delete>
 </sqlMap>

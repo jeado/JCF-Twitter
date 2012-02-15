@@ -23,4 +23,9 @@ public class FollowService {
 		return dao.queryForList("follow.find", follow, FollowVO.class);
 	}
 
+	public void deleteFollow(FollowVO follow) {
+		dao.update("follow.delete", follow);
+
+	}
+
 }
