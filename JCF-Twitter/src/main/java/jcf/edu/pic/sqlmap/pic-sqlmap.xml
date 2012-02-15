@@ -29,7 +29,7 @@
 	</statement>
 
 	<statement id ="update" parameterClass="jcf.edu.pic.model.PicVO">
-		UPDATE TWITTER_USER SET
+		UPDATE TWITTER_USER_PIC SET
 				file_uuid = #fileUuid#
 		WHERE 	user_id =#userId#
 	</statement>

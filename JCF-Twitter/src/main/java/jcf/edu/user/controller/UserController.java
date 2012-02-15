@@ -39,7 +39,13 @@ public class UserController {
 //--------------------------------------로그인-------------------------------------------
 	@RequestMapping("login")
 	public void login(MciRequest mciRequest, MciResponse mciResponse){
-		mciResponse.setViewName("login");
+		if((SessionUtil.getCurrentUser())==null){
+			System.out.println("비었습니다.");
+			mciResponse.setViewName("login");
+		}else{
+			System.out.println("있습니다.");
+			mciResponse.setViewName("redirect:/tweet");
+		}
 	}
 
 	@RequestMapping("loginHandle")

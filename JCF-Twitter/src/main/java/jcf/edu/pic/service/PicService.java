@@ -23,4 +23,13 @@ public class PicService {
 
 	}
 
+	public PicVO selectPhoto(PicVO pic) {
+		return dao.queryForObject ("pic.find", pic, PicVO.class);
+	}
+
+	public void updatePhoto(PicVO pic) {
+		dao.update("pic.update", pic);
+
+	}
+
 }

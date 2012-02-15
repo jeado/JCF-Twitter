@@ -57,11 +57,13 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 		pic.setFilePath("userpic");
 		pic.setUserId(userId);
 
-	   //UserService userService = null;
-		picService.insertPhoto(pic);
+		if((picService.selectPhoto(pic))==null)
+		{
+			picService.insertPhoto(pic);
+		}else{
+			picService.updatePhoto(pic);
+		}
 
-		//Product product = null;
-		//productService.insertProduct(product);
 	}
 
 	public String createFileNameIfAccepted(String folder, FileInfo fileInfo) {
