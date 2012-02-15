@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="TwitterTweet">
+
+	<!-- 트윗출력 문 -->
+	<statement id="select" resultClass="jcf.edu.model.TwitterTweet">
+		SELECT * FROM twitter_tweet
+	</statement>
+	
+	<!-- 트윗입력 문 -->
+	<statement id="insert" parameterClass="jcf.edu.model.TwitterTweet">
+		INSERT INTO 
+		twitter_tweet(id, register, TWEETS, reg_date)
+		VALUES(sequence_tweet.nextval, #register#, #tweets#, #regDate#)
+	</statement>
+	
+	<!-- 트윗삭제문 -->
+	<statement id="delete" parameterClass="jcf.edu.model.TwitterTweet">
+		DELETE twitter_tweet
+		WHERE id = #id#
+	</statement>
+	
+	<!-- 트윗수정문 -->
+	<statement id="update" parameterClass="jcf.edu.model.TwitterTweet">
+		UPDATE twitter_tweet
+		SET id =#id#,
+			register = #register#,
+			TWEETS = #tweets#,
+		WHERE id = #id#
+		
+	</statement>
+</sqlMap>

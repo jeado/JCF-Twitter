@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="TwitterUserFollowing">
+
+	<!-- 팔로윙출력문 -->
+	<select id="select" resultClass="jcf.edu.model.TwitterUserFollowing" parameterClass="jcf.edu.model.TwitterUserFollowing">
+		select * from Twitter_User_Following
+		WHERE user_id = #userId#
+	</select>
+
+	<!-- 팔로윙입력문 -->
+	<insert id="insert" parameterClass="jcf.edu.model.TwitterUserFollowing">
+		insert into Twitter_User_Following(user_id, following_id)
+		 values(#userId#, #followingId#)
+	</insert>
+
+	<!-- 팔로윙 수정문 -->
+	<update id="update" parameterClass="jcf.edu.model.TwitterUserFollowing">
+		update Twitter_User_Following
+		set
+		user_id = #userId#,
+		following_id = #followingId#,
+		where user_id = #userId#
+	</update>
+
+	<!-- 팔로윙 삭제문 -->
+	<delete id="delete" parameterClass="jcf.edu.model.TwitterUserFollowing">
+		delete from Twitter_User_Following
+		where user_id = #userId#
+	</delete>
+</sqlMap>

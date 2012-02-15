@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="TwitterUserPic">
+
+	<!-- 파일출력 문 -->
+	<statement id="select" resultClass="jcf.edu.model.TwitterUserPic">
+		SELECT * FROM tiwtter_user_pic
+	</statement>
+	
+	<!-- 파일입력 문 -->
+	<insert id="insert" parameterClass="jcf.edu.model.TwitterUserPic">
+		INSERT INTO 
+		twitter_user_pic(file_uuid, file_name, file_path, user_id)
+		VALUES(#fileUuid#, #fileName#, #filePath#, #userId#)
+	</insert>
+	
+	<!-- 파일삭제문 -->
+	<statement id="delete" parameterClass="jcf.edu.model.TwitterUserPic">
+		DELETE twitter_user_pic
+		WHERE file_uuid = #fileUuid#
+	</statement>
+	
+	<!-- 파일수정문 -->
+	<statement id="update" parameterClass="jcf.edu.model.TwitterUserPic">
+		UPDATE tiwtter_user_pic
+		SET file_uuid =#fileUuid#,
+			file_name = #fileName#,
+			file_path = #filePath#
+			
+		WHERE user_id = #userId#
+		
+	</statement>
+</sqlMap>

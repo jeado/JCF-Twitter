@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="TwitterUser">
+
+	<!-- 유저출력 문 -->
+
+	<statement id="select" parameterClass="jcf.edu.user.model.UserVO"
+		resultClass="jcf.edu.user.model.UserVO">
+		select * from twitter_user
+
+		<dynamic prepend="where">
+			<isNotEmpty property="userId" prepend="and">
+				user_id= #userId#
+			</isNotEmpty>
+			<isNotEmpty property="userName" prepend="and">
+				user_name=
+				#userName#
+			</isNotEmpty>
+		</dynamic>
+	</statement>
+
+	<!-- 친구리스트 출력 -->
+	<statement id="userselect" parameterClass="jcf.edu.user.model.UserVO"
+		resultClass="jcf.edu.user.model.UserVO">
+		SELECT * FROM twitter_user
+		<dynamic prepend="where">
+			<isNotEmpty property="userId">
+				user_id != #userId#
+			</isNotEmpty>
+		</dynamic>
+	</statement>
+
+	<!-- 유저입력 문 -->
+	<insert id="insert" parameterClass="jcf.edu.user.model.UserVO">
+		INSERT INTO
+		twitter_user(user_id, user_name, user_email)
+		VALUES(#userId#,
+		#userName#, #userEmail#)
+	</insert>
+
+	<!-- 유저삭제문 -->
+	<statement id="delete" parameterClass="jcf.edu.user.model.UserVO">
+		DELETE twitter_user
+		WHERE user_id = #userId#
+	</statement>
+
+	<!-- 유저정보수정문 -->
+	<statement id="update" parameterClass="jcf.edu.user.model.UserVO">
+		UPDATE twitter_user
+		SET
+		user_id =#userId#,
+		user_name = #userName#,
+		user_email = #userEmail#
+		WHERE user_id = #userId#
+	</statement>
+</sqlMap>
