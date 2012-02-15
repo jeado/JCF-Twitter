@@ -5,6 +5,7 @@ import java.util.Map;
 import jcf.edu.tweet.model.FollowingVO;
 import jcf.edu.tweet.model.TweetVO;
 import jcf.edu.tweet.service.TwitterService;
+import jcf.edu.user.model.PicVO;
 import jcf.edu.user.model.UserVO;
 import jcf.edu.user.service.UserService;
 
@@ -79,6 +80,18 @@ public class TwiiterTest {
 		}
 	}
 
+	/*@Test
+	public void 사진수정(){
+		PicVO picVO = new PicVO("hi","hi","userPic","yuni");
+		userService.updatePic(picVO);
+	}
+
+	@Test
+	public void 사진조회(){
+		PicVO picVO = new PicVO("hi","hi","userPic","yuni");
+		userService.updatePic(picVO);
+	}
+*/
 
 
 }

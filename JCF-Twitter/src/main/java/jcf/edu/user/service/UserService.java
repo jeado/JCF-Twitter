@@ -3,6 +3,7 @@ package jcf.edu.user.service;
 import java.util.List;
 import java.util.Map;
 
+import jcf.edu.user.model.PicVO;
 import jcf.edu.user.model.UserVO;
 import jcf.query.core.QueryExecutor;
 
@@ -34,6 +35,18 @@ public class UserService {
 
 	public void insertUser(Map<String,String> user){
 		executor.update("user.insert", user);
+	}
+
+	public void insertPic(PicVO picVO){
+		executor.update("user.insertPic", picVO);
+	}
+
+	public List<PicVO> selectPic(PicVO picVO){
+		return executor.queryForList("user.selectPic", picVO, PicVO.class);
+	}
+
+	public void updatePic(PicVO picVO){
+		executor.update("user.updatePic", picVO);
 	}
 
 }

@@ -49,4 +49,30 @@
 		)
 	</insert>
 
+	<insert id="insertPic" parameterClass="jcf.edu.user.model.PicVO">
+		insert into twitter_user_pic(
+			file_uuid,
+			file_name,
+			file_path,
+			user_id
+		) values(
+			#fileUuid#,
+			#fileName#,
+			#filePath#,
+			#userId#
+		)
+	</insert>
+
+	<select id="selectPic" parameterClass="jcf.edu.user.model.PicVO" resultClass="jcf.edu.user.model.PicVO">
+		select * from twitter_user_pic
+		where user_id = #userId#
+	</select>
+
+	<update id="updatePic" parameterClass="jcf.edu.user.model.PicVO">
+		update twitter_user_pic
+		set file_uuid = #fileUuid#,
+		file_name = #fileName#
+		where user_id = #userId#
+	</update>
+
 </sqlMap>

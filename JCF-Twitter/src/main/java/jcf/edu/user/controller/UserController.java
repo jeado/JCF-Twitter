@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import jcf.edu.login.util.SessionUtil;
+import jcf.edu.user.model.PicVO;
 import jcf.edu.user.model.UserVO;
 import jcf.edu.user.service.UserService;
 import jcf.sua.mvc.MciRequest;
 import jcf.sua.mvc.MciResponse;
+import jcf.upload.FileInfo;
 
 import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +114,16 @@ public class UserController {
 		userService.insertUser(param);
 		mciResponse.setViewName("redirect:/user/findUsers");
 	}
+
+	@RequestMapping("file/fileView/{userId}")
+	public void selectPic(MciRequest mciRequest, MciResponse mciResponse,@PathVariable String userId){
+		PicVO picVO = new PicVO();
+		picVO.setUserId(userId);
+		List<PicVO> selectPic = userService.selectPic(picVO);
+		if(!selectPic.isEmpty())
+			mciResponse.setDownloadFile(new FileInfo(selectPic.get(0).getFilePath(), selectPic.get(0).getFileUuid()));
+	}
+
 
 
 }
