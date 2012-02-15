@@ -30,7 +30,7 @@ public class UserController {
 	private TweetService tweetService;
 	@Autowired
 	private FollowingService followingService;
-	
+
 	// 사용자관리페이지
 	@RequestMapping("user/findUsers")
 	public void userManager(MciRequest mciRequest, MciResponse mciResponse) {
@@ -131,8 +131,10 @@ public class UserController {
 		} else {
 			SessionUtil.addUser(list.get(0));
 			List<TwitterTweet> tweetlist = tweetService.getAllTweet();
-			List<UserVO> userList =userService.getUserList(SessionUtil.getCurrentUser());
-			mciResponse.set("currentUser", SessionUtil.getCurrentUser(),UserVO.class );
+			List<UserVO> userList = userService.getUserList(SessionUtil
+					.getCurrentUser());
+			mciResponse.set("currentUser", SessionUtil.getCurrentUser(),
+					UserVO.class);
 			mciResponse.setList("userList", userList, UserVO.class);
 			mciResponse.setList("tweetList", tweetlist, TwitterTweet.class);
 			mciResponse.setViewName("twitter");
@@ -143,21 +145,26 @@ public class UserController {
 	// 트윗페이지
 	@RequestMapping("tweet")
 	public void showTweetView(MciRequest mciRequest, MciResponse mciResponse) {
-		if (SessionUtil.getCurrentUser() == null){ 
+		if (SessionUtil.getCurrentUser() == null) {
 			List<TwitterTweet> tweetlist = tweetService.getAllTweet();
-			List<UserVO> userList =userService.getUserList(null);
+			List<UserVO> userList = userService.getUserList(null);
 			mciResponse.setList("userList", userList, UserVO.class);
 			mciResponse.setList("tweetList", tweetlist, TwitterTweet.class);
 			mciResponse.setViewName("twitter");
-		}else{
+		} else {
 			List<TwitterTweet> tweetlist = tweetService.getAllTweet();
-			List<UserVO> userList =userService.getUserList(SessionUtil.getCurrentUser());
-			mciResponse.set("currentUser", SessionUtil.getCurrentUser(),UserVO.class );
+			List<UserVO> userList = userService.getUserList(SessionUtil
+					.getCurrentUser());
+			List<TwitterUserFollowing> followList = followingService
+					.getAllFollowing(SessionUtil.getCurrentUser());
+			mciResponse.set("currentUser", SessionUtil.getCurrentUser(),
+					UserVO.class);
 			mciResponse.setList("userList", userList, UserVO.class);
 			mciResponse.setList("tweetList", tweetlist, TwitterTweet.class);
+			mciResponse.setList("followingList", followList,
+					TwitterUserFollowing.class);
 			mciResponse.setViewName("twitter");
 		}
-		
 	}
 
 	// 트윗글쓰기저장
@@ -174,54 +181,44 @@ public class UserController {
 			mciResponse.set("exception", exceptionLogin, ExceptionLogin.class);
 			mciResponse.setViewName("error");
 		} else {
+			// 팔로워한 트윗글
 			tweetService.insertTweet(tweet);
-			List<TwitterTweet> tweetlist = tweetService.getAllTweet();
-			List<UserVO> userList =userService.getUserList(SessionUtil.getCurrentUser()); 
-			//현재사용자정보
-			mciResponse.set("currentUser", SessionUtil.getCurrentUser(),UserVO.class );
-			//사용자목록
-			mciResponse.setList("userList", userList, UserVO.class);
-			//팔로워한 트윗글
-			mciResponse.setList("tweetList", tweetlist, TwitterTweet.class);
-			mciResponse.setViewName("twitter");
+			mciResponse.setViewName("redirect:/tweet");
 		}
 	}
-	
-	//팔로윙
-	@RequestMapping("follow/{userId}")
-	public void Following(MciRequest mciRequest, MciResponse mciResponse, @PathVariable String userId) {
-	
-			//트위터팔로윙
+
+	// 팔로윙
+	@RequestMapping("follow")
+	public void Following(MciRequest mciRequest, MciResponse mciResponse) {
+		if (SessionUtil.getCurrentUser() == null) {
+
+		} else {
+			// 트위터팔로윙
+			String userId = mciRequest.getParam("id");
 			TwitterUserFollowing twitterUserFollowing = new TwitterUserFollowing();
-			twitterUserFollowing.setUserId(SessionUtil.getCurrentUser().getUserId());
+			twitterUserFollowing.setUserId(SessionUtil.getCurrentUser()
+					.getUserId());
 			twitterUserFollowing.setFollowingId(userId);
-			//현재사용자정보
+			// 현재사용자정보
 			followingService.insertFollowing(twitterUserFollowing);
 			mciResponse.setViewName("redirect:/tweet");
-	
-	}
-	
-	@RequestMapping("unfollow/{userId}")
-	public void unFollowing(MciRequest mciRequest, MciResponse mciResponse, @PathVariable String userId){
-		if(SessionUtil.getCurrentUser() == null){
-		
-		}else{
-			//트위터팔로윙
-			TwitterUserFollowing twitterUserFollowing = new TwitterUserFollowing();
-			twitterUserFollowing.setUserId(SessionUtil.getCurrentUser().getUserId());
-			twitterUserFollowing.setFollowingId(userId);
-			List<TwitterTweet> tweetlist = tweetService.getAllTweet();
-			List<UserVO> userList =userService.getUserList(SessionUtil.getCurrentUser()); 
-			followingService.deleteFollowing(twitterUserFollowing);
-			
-			//현재사용자정보
-			mciResponse.set("currentUser", SessionUtil.getCurrentUser(),UserVO.class );
-			//사용자목록
-			mciResponse.setList("userList", userList, UserVO.class);
-			//팔로워한 트윗글
-			mciResponse.setList("tweetList", tweetlist, TwitterTweet.class);
-			mciResponse.setViewName("twitter");
 		}
 	}
-	
+
+	@RequestMapping("unfollow")
+	public void unFollowing(MciRequest mciRequest, MciResponse mciResponse) {
+		if (SessionUtil.getCurrentUser() == null) {
+
+		} else {
+			// 트위터팔로윙
+			String userId = mciRequest.getParam("id");
+			TwitterUserFollowing twitterUserFollowing = new TwitterUserFollowing();
+			twitterUserFollowing.setUserId(SessionUtil.getCurrentUser()
+					.getUserId());
+			twitterUserFollowing.setFollowingId(userId);
+			followingService.deleteFollowing(twitterUserFollowing);
+			mciResponse.setViewName("redirect:/tweet");
+		}
+	}
+
 }

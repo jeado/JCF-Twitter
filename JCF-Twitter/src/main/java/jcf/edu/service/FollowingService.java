@@ -17,6 +17,7 @@ public class FollowingService {
 	public List<TwitterUserFollowing> getAllFollowing(UserVO userVO) {
 		return dao.queryForList("TwitterUserFollowing.select", userVO, TwitterUserFollowing.class);
 	}
+	
 	public void insertFollowing(TwitterUserFollowing following) {
 		dao.update("TwitterUserFollowing.insert", following);
 	}

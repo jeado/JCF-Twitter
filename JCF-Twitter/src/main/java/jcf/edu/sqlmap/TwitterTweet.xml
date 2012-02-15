@@ -5,7 +5,13 @@
 
 	<!-- 트윗출력 문 -->
 	<statement id="select" resultClass="jcf.edu.model.TwitterTweet">
-		SELECT * FROM twitter_tweet
+		SELECT id, register, TWEETS, reg_date FROM twitter_tweet
+	</statement>
+	
+	<!-- 트윗팔로윙 출력 문 -->
+	<statement id="followingselect" resultClass="jcf.edu.model.TwitterTweet" parameterClass="jcf.edu.model.TwitterUserFollowing">
+		SELECT id, register, TWEETS, reg_date FROM twitter_tweet
+		WHERE register = #userId# or register = #followingId#;
 	</statement>
 	
 	<!-- 트윗입력 문 -->

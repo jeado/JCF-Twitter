@@ -5,7 +5,7 @@
 <sqlMap namespace="TwitterUserFollowing">
 
 	<!-- 팔로윙출력문 -->
-	<select id="select" resultClass="jcf.edu.model.TwitterUserFollowing" parameterClass="jcf.edu.model.TwitterUserFollowing">
+	<select id="select" resultClass="jcf.edu.model.TwitterUserFollowing" parameterClass="jcf.edu.user.model.UserVO">
 		select * from Twitter_User_Following
 		WHERE user_id = #userId#
 	</select>
