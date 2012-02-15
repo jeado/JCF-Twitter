@@ -3,10 +3,12 @@
 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace ="user">
+	<statement id = "select" parameterClass="jcf.edu.user.model.UserVO" resultClass= "jcf.edu.user.model.UserVO">
+		SELECT * FROM TWITTER_USER WHERE user_id != #userId#
+	</statement>
 
-	<statement id = "find" parameterClass="java.util.Map"  resultClass= "jcf.edu.user.model.UserVO">
+	<statement id = "find" parameterClass="jcf.edu.user.model.UserVO"  resultClass= "jcf.edu.user.model.UserVO">
 		SELECT * FROM TWITTER_USER
-
 		<dynamic prepend="where">
 			<isNotEmpty property="userId" prepend="and">
 				user_id  = #userId#

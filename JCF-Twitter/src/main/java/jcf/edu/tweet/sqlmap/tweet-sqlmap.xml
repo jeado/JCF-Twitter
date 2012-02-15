@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN'
+'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace ="tweet">
+	<insert id ="insert" parameterClass="jcf.edu.tweet.model.TweetVO">
+		INSERT INTO TWITTER_TWEET (
+				id,
+   				register,
+   				tweets,
+   				reg_date
+			)VALUES (
+				TWITTER_TWEET_SEQUENCE.nextval,
+   				#register#,
+   				#tweets#,
+   				sysdate
+			)
+	</insert>
+
+	<statement id = "find" parameterClass="java.util.Map"  resultClass= "jcf.edu.tweet.model.TweetVO">
+		SELECT * FROM TWITTER_TWEET
+
+		<dynamic prepend="where">
+			<isNotEmpty property="register" prepend="and">
+				register  = #register#
+			</isNotEmpty>
+		</dynamic>
+	</statement>
+
+	<delete id="delete" parameterClass="jcf.edu.tweet.model.TweetVO">
+		DELETE FROM TWITTER_TWEET WHERE id = #id#
+	</delete>
+
+</sqlMap>

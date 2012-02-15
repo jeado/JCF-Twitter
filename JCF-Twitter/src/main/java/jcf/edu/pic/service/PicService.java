@@ -18,4 +18,9 @@ public class PicService {
 
 	}
 
+	public void insertPhoto(PicVO pic) {
+		dao.update("pic.insert", pic);
+
+	}
+
 }

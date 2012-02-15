@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import jcf.edu.pic.model.PicVO;
-import jcf.edu.user.service.UserService;
+import jcf.edu.pic.service.PicService;
 import jcf.upload.FileInfo;
 import jcf.upload.MultiPartInfo;
 import jcf.upload.handler.UploadEventHandler;
@@ -18,7 +18,7 @@ import jcf.upload.persistence.PersistenceManager;
 
 public class UserPicUploadEventHandler implements UploadEventHandler {
 	@Autowired
-	private UserService userService;
+	private PicService picService;
 
 	public long getMaxUploadSize() {
 		return 10000000;
@@ -58,7 +58,7 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 		pic.setUserId(userId);
 
 	   //UserService userService = null;
-		userService.insertPhoto(pic);
+		picService.insertPhoto(pic);
 
 		//Product product = null;
 		//productService.insertProduct(product);

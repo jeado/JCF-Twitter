@@ -49,13 +49,17 @@ $(document).ready(function(){
 <div id="page-container" class="page-container  home-container">
 <div class="main-content" style="min-height: 396px; ">
 	<div class ="page-header home-header">
-		<form  name="tweetForm" action="<%=request.getContextPath()%>/tweet/insert" method="post" >
+		<form  name="tweetForm" action="<%=request.getContextPath()%>/tweet/insert"
+			   method="post" >
 		<div class="tweet-box condensed">
 		      <div class="tweet-box-title">
 		      		<h2>What’s happening?</h2>
 		      </div>
 			  <div class="text-area">
-			    <div class="text-area-editor twttr-editor"><textarea name="tweets" class="twitter-anywhere-tweet-box-editor" style="width: 482px; height: 56px; "></textarea></div>
+			    <div class="text-area-editor twttr-editor">
+			    <textarea name="tweets" class="twitter-anywhere-tweet-box-editor"
+			    				style="width: 482px; height: 56px; "></textarea>
+			   	</div>
 			  </div>
 		  </div>
 		  <input type="submit"  class="btn" value="저장" >

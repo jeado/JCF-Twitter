@@ -17,21 +17,22 @@ public class UserService {
 	@Autowired
 	private QueryExecutor dao;
 
-	public List<UserVO> getUser(Map param){
+	public List<UserVO> getUser(UserVO user){
 
-		return dao.queryForList("user.find", param, UserVO.class);
+		return dao.queryForList("user.find", user, UserVO.class);
+	}
+
+	public List<UserVO> getUserList(UserVO user){
+
+		return dao.queryForList("user.select", user, UserVO.class);
 	}
 
 	public void insertUser (UserVO user){
 		dao.update("user.insert", user);
 	}
 
-	public void insertPhoto (PicVO pic){
-		dao.update("pic.insert", pic);
-	}
-
-	public UserVO findUser (Map param){
-		return dao.queryForObject("user.find", param, UserVO.class);
+	public UserVO findUser (UserVO user){
+		return dao.queryForObject("user.find", user, UserVO.class);
 	}
 
 	public void deleteUser (UserVO user){
@@ -41,5 +42,6 @@ public class UserService {
 	public void updateUser (UserVO user){
 		dao.update("user.update", user);
 	}
+
 
 }

@@ -44,12 +44,13 @@ public class UserController {
 
 	@RequestMapping("loginHandle")
 	public void loginHandle (MciRequest mciRequest, MciResponse mciResponse){
-		Map param = mciRequest.getParam();
-		List<UserVO> user = userService.getUser(param);
+		UserVO user = mciRequest.getParam(UserVO.class);
+		List<UserVO> userList = userService.getUser(user);
 
-		if(!user.isEmpty()){
-			SessionUtil.addUser(user.get(0));
-			mciResponse.setViewName("twitter");
+		if(!userList.isEmpty()){
+			SessionUtil.addUser(userList.get(0));
+			mciResponse.set("currentUser", userList.get(0));
+			mciResponse.setViewName("redirect:/tweet");
 		}else {
 			mciResponse.setViewName("login");
 		}
@@ -58,8 +59,9 @@ public class UserController {
 //-----------------------------------모든유저------------------------------------------
 	@RequestMapping("user/findUsers")
 	public void getAllUser(MciRequest mciRequest, MciResponse mciResponse){
-		Map param = mciRequest.getParam();
-		List<UserVO> allUser = userService.getUser(param);
+
+		UserVO user = mciRequest.getParam(UserVO.class);
+		List<UserVO> allUser = userService.getUser(user);
 		mciResponse.setList("userList", allUser, UserVO.class);
 		mciResponse.setViewName("user/userList");
 	}
@@ -67,8 +69,8 @@ public class UserController {
 //-----------------------------------유저검색-------------------------------------------
 	@RequestMapping("user/findUsers2")
 	public void getUser(MciRequest mciRequest, MciResponse mciResponse){
-		Map param = mciRequest.getParam();
-		List<UserVO> allUser = userService.getUser(param);
+		UserVO user = mciRequest.getParam(UserVO.class);
+		List<UserVO> allUser = userService.getUser(user);
 		mciResponse.setList("userList", allUser, UserVO.class);
 		mciResponse.setViewName("user/userList");
 	}
@@ -77,10 +79,12 @@ public class UserController {
 	@RequestMapping("user/info/{userId}")
 	public void userDetail (MciRequest mciRequest, MciResponse mciResponse,
 												@PathVariable String userId){
-		Map<String, String> map = new HashMap<String, String> ();
-		map.put("userId", userId);
-		UserVO user = userService.findUser(map);
-		mciResponse.set("user", user, UserVO.class);
+		UserVO user = new UserVO();
+		user.setUserId(userId);
+//		Map<String, String> map = new HashMap<String, String> ();
+//		map.put("userId", userId);
+		UserVO userDetail = userService.findUser(user);
+		mciResponse.set("user", userDetail, UserVO.class);
 		mciResponse.setViewName("user/userDetail");
 	}
 
