@@ -33,7 +33,7 @@ public class TwiiterTest {
 	public void 고객_조회테스트(){
 		Map<String, String> map = new HashMap<String, String> ();
 		map.put("user_id", "andycloudy");
-		List <UserVO> allUser = userService.getAllUser(map);
+		List <UserVO> allUser = userService.getUser(map);
 		System.out.println("-----------고객 정보 조회 -----------------");
 		System.out.println(allUser);
 	for (UserVO u: allUser){

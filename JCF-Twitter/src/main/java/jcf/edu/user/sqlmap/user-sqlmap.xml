@@ -3,32 +3,45 @@
 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 
 <sqlMap namespace ="user">
-	<statement id = "select" resultClass= "jcf.edu.user.model.UserVO">
-		SELECT * FROM TWITTER_USER
-	</statement>
 
 	<statement id = "find" parameterClass="java.util.Map"  resultClass= "jcf.edu.user.model.UserVO">
 		SELECT * FROM TWITTER_USER
 
 		<dynamic prepend="where">
-			<isNotEmpty property="id" prepend="and">
-				user_id  = #id#
+			<isNotEmpty property="userId" prepend="and">
+				user_id  = #userId#
+			</isNotEmpty>
+		</dynamic>
+
+		<dynamic prepend="and">
+			<isNotEmpty property="userName" prepend="and">
+				user_name  = #userName#
 			</isNotEmpty>
 		</dynamic>
 	</statement>
 
 
 	<insert id ="insert" parameterClass="jcf.edu.user.model.UserVO">
-
+		INSERT INTO TWITTER_USER (
+				user_id,
+				user_name,
+				user_email
+			)VALUES (
+				#userId#,
+				#userName#,
+				#userEmail#
+			)
 	</insert>
 
 	<delete id="delete" parameterClass="jcf.edu.user.model.UserVO">
-
+		DELETE FROM TWITTER_USER WHERE user_id = #userId#
 	</delete>
 
-
 	<statement id ="update" parameterClass="jcf.edu.user.model.UserVO">
-
+		UPDATE TWITTER_USER SET
+				user_name =#userName#,
+				user_email= #userEmail#
+		WHERE 	user_id =#userId#
 	</statement>
 
 

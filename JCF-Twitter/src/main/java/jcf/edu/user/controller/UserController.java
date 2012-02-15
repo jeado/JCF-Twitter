@@ -9,6 +9,7 @@ import jcf.edu.user.model.UserVO;
 import jcf.edu.user.service.UserService;
 import jcf.sua.mvc.MciRequest;
 import jcf.sua.mvc.MciResponse;
+import jcf.upload.FileInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,51 +22,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-
-
-	@RequestMapping("login")
-	public void login(MciRequest mciRequest, MciResponse mciResponse){
-		//userService.findUser (userId);
-		mciResponse.setViewName("login");
-	}
-
-	@RequestMapping("loginHandle")
-	public void loginHandle (MciRequest mciRequest, MciResponse mciResponse){
-		//SessionUtil session = new SessionUtil();
-		//session.addUser(userVO
-		mciResponse.setViewName("login");
-	}
-
-//----------------------------------유저 한사람 -------------------------------------
-	@RequestMapping("user/info/{userId}")
-	public void userDetail (MciRequest mciRequest, MciResponse mciResponse, @PathVariable String userId){
-
-		Map<String, String> map = new HashMap<String, String> ();
-		map.put("id", userId);
-		UserVO user = userService.findUser(map);
-		mciResponse.set("user", user, UserVO.class);
-		mciResponse.setViewName("user/userDetail");
-	}
-
-
-//-----------------------------------모든유저-------------------------------------------------
-	@RequestMapping("user/findUsers")
-	public void getAllUser(MciRequest mciRequest, MciResponse mciResponse){
-		Map param = mciRequest.getParam();
-		List<UserVO> allUser = userService.getAllUser(param);
-		mciResponse.setList("userList", allUser, UserVO.class);
-		mciResponse.setViewName("user/userList");
-	}
-
-	@RequestMapping("user/findUsers2")
-	public void getUser(MciRequest mciRequest, MciResponse mciResponse){
-		Map param = mciRequest.getParam();
-		System.out.println("TEST________1111111"+param);
-		List<UserVO> allUser = userService.getAllUser(param);
-		mciResponse.setList("userList", allUser, UserVO.class);
-		mciResponse.setViewName("user/userList");
-	}
-
+//-------------------------------------회원가입--------------------------------------
 	@RequestMapping("user/create")
 	public void joinUser (MciRequest mciRequest, MciResponse mciResponse){
 		mciResponse.setViewName("user/userReg");
@@ -73,15 +30,82 @@ public class UserController {
 
 	@RequestMapping("user/insertUser")
 	public void regUser(MciRequest mciRequest, MciResponse mciResponse){
-
-		//Customer param = mciRequest.getParam(Customer.class);
-		//customerService.insertCustomer(param);
-		//mciResponse.set("member", param);
-		//mciResponse.setViewName("join_member_proc");
-
 		UserVO param = mciRequest.getParam(UserVO.class);
-		//SessionUtil session = new SessionUtil();
-		//session.addUser(userVO);
+		userService.insertUser(param);
+		mciResponse.setViewName("redirect:/user/findUsers");
+	}
+
+	public void regPic (MciRequest mciRequest, MciResponse mciResponse){
+
+		}
+
+//--------------------------------------로그인-------------------------------------------
+	@RequestMapping("login")
+	public void login(MciRequest mciRequest, MciResponse mciResponse){
+		mciResponse.setViewName("login");
+	}
+
+	@RequestMapping("loginHandle")
+	public void loginHandle (MciRequest mciRequest, MciResponse mciResponse){
+		Map param = mciRequest.getParam();
+		List<UserVO> user = userService.getUser(param);
+		System.out.println("TEST-----------------------"+ user);
+
+		if(!user.isEmpty()){
+			System.out.println("TEST111111111111-----------------------"+
+								user.get(0).getUserId());
+			SessionUtil.addUser(user.get(0));
+			mciResponse.setViewName("twitter");
+		}else {
+			mciResponse.setViewName("login");
+		}
+	}
+
+//-----------------------------------모든유저------------------------------------------
+	@RequestMapping("user/findUsers")
+	public void getAllUser(MciRequest mciRequest, MciResponse mciResponse){
+		Map param = mciRequest.getParam();
+		List<UserVO> allUser = userService.getUser(param);
+		mciResponse.setList("userList", allUser, UserVO.class);
+		mciResponse.setViewName("user/userList");
+	}
+
+//-----------------------------------유저검색-------------------------------------------
+	@RequestMapping("user/findUsers2")
+	public void getUser(MciRequest mciRequest, MciResponse mciResponse){
+		Map param = mciRequest.getParam();
+		List<UserVO> allUser = userService.getUser(param);
+		mciResponse.setList("userList", allUser, UserVO.class);
+		mciResponse.setViewName("user/userList");
+	}
+
+//----------------------------------유저 디테일 ------------------------------------------
+	@RequestMapping("user/info/{userId}")
+	public void userDetail (MciRequest mciRequest, MciResponse mciResponse,
+												@PathVariable String userId){
+		Map<String, String> map = new HashMap<String, String> ();
+		map.put("userId", userId);
+		UserVO user = userService.findUser(map);
+		mciResponse.set("user", user, UserVO.class);
 		mciResponse.setViewName("user/userDetail");
 	}
+
+//-------------------------------------회원수정---------------------------------------
+	@RequestMapping("user/updateUser")
+	public void updUser(MciRequest mciRequest, MciResponse mciResponse){
+		UserVO user = mciRequest.getParam(UserVO.class);
+		userService.updateUser(user);
+		mciResponse.set("user", user, UserVO.class);
+		mciResponse.setViewName("redirect:/user/findUsers");
+	}
+
+//-------------------------------------회원탈퇴---------------------------------------
+	@RequestMapping("user/deleteUser")
+	public void delUser(MciRequest mciRequest, MciResponse mciResponse){
+		UserVO param = mciRequest.getParam(UserVO.class);
+		userService.deleteUser(param);
+		mciResponse.setViewName("redirect:/user/findUsers");
+	}
+
+
 }
