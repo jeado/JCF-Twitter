@@ -13,7 +13,7 @@
 		padding-top: 60px;
 		padding-bottom: 40px;
 	}
-	
+
 	.userImage {
 		display: inline-block;
 		width: 80px;
@@ -40,7 +40,7 @@
 			<a class="btn btn-navbar" data-toggle="collapse"
 				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
 				class="icon-bar"></span> <span class="icon-bar"></span>
-			</a> 
+			</a>
 			<a class="brand" href="<%=request.getContextPath()%>/login">JCF-Twitter</a>
 			<div class="nav-collapse">
 				<ul class="nav">
@@ -80,7 +80,7 @@
 			<label>현재 사용자 사진</label><img class="userImage" src='<%=request.getContextPath()%>/file/fileView/${user.userId}'>
 			<p class="submit">
 				<button type="submit" class="btn btn-danger">삭제</button>
-			</p> 
+			</p>
 		</form>
 	</div>
 </div>

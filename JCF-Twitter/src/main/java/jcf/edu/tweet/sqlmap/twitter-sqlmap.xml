@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="twitter">
+	<select id="followerList" parameterClass="jcf.edu.user.model.UserVO" resultClass="jcf.edu.tweet.model.FollowingVO">
+		select * from twitter_user_following
+		where user_Id = #userId#
+	</select>
+
+	<insert id="insertFollower" parameterClass="jcf.edu.tweet.model.FollowingVO">
+		insert into twitter_user_following(
+			user_id,
+			following_id
+		) values(
+			#userId#,
+			#followingId#
+		)
+	</insert>
+
+	<delete id="deleteFollower" parameterClass="jcf.edu.tweet.model.FollowingVO">
+		delete from twitter_user_following
+		where user_id = #userId# and following_id = #followingId#
+	</delete>
+
+	<insert id="insertTweet" parameterClass="jcf.edu.tweet.model.TweetVO">
+		insert into twitter_tweet(
+			id,
+			register,
+			tweets,
+ 			reg_date
+		) values(
+			TWITTER_TWEET_SEQUENCE.nextval,
+			#register#,
+			#tweets#,
+ 			sysdate
+		)
+	</insert>
+
+	<select id="selectTweets" parameterClass="jcf.edu.user.model.UserVO" resultClass="jcf.edu.tweet.model.TweetVO">
+		select * from twitter_tweet
+		where register = #userId# or
+		register = (select following_id from twitter_user_following
+					where user_id = #userId#)
+	</select>
+
+	<delete id="deleteTweet" parameterClass="jcf.edu.tweet.model.TweetVO">
+		delete from twitter_tweet
+		where id=#id#
+	</delete>
+</sqlMap>

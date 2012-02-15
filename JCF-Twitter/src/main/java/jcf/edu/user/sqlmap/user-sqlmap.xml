@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
+<sqlMap namespace="user">
+
+	<select id="select" parameterClass="jcf.edu.user.model.UserVO" resultClass="jcf.edu.user.model.UserVO">
+		select * from twitter_user
+		<dynamic prepend="where">
+			<isNotEmpty property="userId" prepend="or">
+				user_id = #userId#
+			</isNotEmpty>
+			<isNotEmpty property="userName">
+				user_name = #userName#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="follower" parameterClass="jcf.edu.user.model.UserVO" resultClass="jcf.edu.user.model.UserVO">
+		select * from twitter_user
+		where user_id != #userId#
+	</select>
+
+	<select id="login" parameterClass="jcf.edu.user.model.UserVO" resultClass="jcf.edu.user.model.UserVO">
+		select * from twitter_user
+		where user_id = #userId#
+	</select>
+
+	<delete id="delete" parameterClass="jcf.edu.user.model.UserVO">
+		delete from twitter_user
+		where user_id = #userId#
+	</delete>
+
+	<update id="update" parameterClass="jcf.edu.user.model.UserVO">
+		update twitter_user
+		set user_name = #userName#,
+		user_email = #userEmail#
+		where user_id = #userId#
+	</update>
+
+	<insert id="insert" parameterClass="java.util.Map">
+		insert into twitter_user(
+			user_id,
+			user_name,
+			user_email
+		) values(
+			#userId#,
+			#userName#,
+			#userEmail#
+		)
+	</insert>
+
+</sqlMap>

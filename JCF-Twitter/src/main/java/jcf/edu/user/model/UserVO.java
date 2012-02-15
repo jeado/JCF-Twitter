@@ -6,6 +6,17 @@ public class UserVO {
 	private String userName;
 	private String userEmail;
 
+	public UserVO(String userId, String userName, String userEmail) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userEmail = userEmail;
+	}
+
+	public UserVO() {
+		super();
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -29,7 +40,7 @@ public class UserVO {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		UserVO compareToObj = (UserVO) obj;
