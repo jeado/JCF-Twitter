@@ -2,6 +2,7 @@ package jcf.edu.service;
 
 import java.util.List;
 
+import jcf.edu.model.TwitterUserPic;
 import jcf.edu.user.model.UserVO;
 import jcf.query.core.QueryExecutor;
 
@@ -13,18 +14,17 @@ public class PicService {
 	@Autowired
 	private QueryExecutor dao;
 
-	public List<UserVO> getAllUser() {
-
-		return dao.queryForList("TwitterUserPic.xml.select", null, UserVO.class);
-
+	public List<TwitterUserPic> getpic(TwitterUserPic picVO) {
+		return dao.queryForList("TwitterUserPic.select", picVO, TwitterUserPic.class);
 	}
-	public void insertUser(UserVO Pic) {
-		dao.update("TwitterUserPic.xml.insert", Pic);
+	
+	public void insertpic(TwitterUserPic Pic) {
+		dao.update("TwitterUserPic.insert", Pic);
 	}
-	public void updateUser(UserVO Pic) {
-		dao.update("TwitterUserPic.xml.update", Pic);
+	public void updatepic(TwitterUserPic Pic) {
+		dao.update("TwitterUserPic.update", Pic);
 	}
-	public void deleteUser(UserVO Pic) {
-		dao.update("TwitterUserPic.xml.delete", Pic);
+	public void deletepic(TwitterUserPic Pic) {
+		dao.update("TwitterUserPic.delete", Pic);
 	}
 }

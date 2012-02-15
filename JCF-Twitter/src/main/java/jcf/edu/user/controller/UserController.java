@@ -7,12 +7,15 @@ import jcf.edu.login.util.SessionUtil;
 import jcf.edu.model.ExceptionLogin;
 import jcf.edu.model.TwitterTweet;
 import jcf.edu.model.TwitterUserFollowing;
+import jcf.edu.model.TwitterUserPic;
 import jcf.edu.service.FollowingService;
+import jcf.edu.service.PicService;
 import jcf.edu.service.TweetService;
 import jcf.edu.user.model.UserVO;
 import jcf.edu.user.service.UserService;
 import jcf.sua.mvc.MciRequest;
 import jcf.sua.mvc.MciResponse;
+import jcf.upload.FileInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,8 @@ public class UserController {
 	private TweetService tweetService;
 	@Autowired
 	private FollowingService followingService;
+	@Autowired
+	private PicService picService;
 
 	// 사용자관리페이지
 	@RequestMapping("user/findUsers")
@@ -123,21 +128,23 @@ public class UserController {
 		UserVO userVO = new UserVO();
 		userVO.setUserId(id);
 		List<UserVO> list = userService.getUser(userVO);
-		System.out.println(list.size());
+		
 		if (list.size() < 1) {
 			ExceptionLogin exceptionLogin = new ExceptionLogin("사용자가 없습니다.");
 			mciResponse.set("exception", exceptionLogin, ExceptionLogin.class);
 			mciResponse.setViewName("error");
 		} else {
 			SessionUtil.addUser(list.get(0));
-			List<TwitterTweet> tweetlist = tweetService.getAllTweet();
+			/*List<TwitterTweet> tweetlist = tweetService.getAllTweet();
 			List<UserVO> userList = userService.getUserList(SessionUtil
 					.getCurrentUser());
 			mciResponse.set("currentUser", SessionUtil.getCurrentUser(),
 					UserVO.class);
 			mciResponse.setList("userList", userList, UserVO.class);
-			mciResponse.setList("tweetList", tweetlist, TwitterTweet.class);
-			mciResponse.setViewName("twitter");
+			mciResponse.setList("tweetList", tweetlist, TwitterTweet.class);*/
+			
+			//mciResponse.setViewName("twitter");
+			mciResponse.setViewName("redirect:/tweet");
 		}
 	}
 
@@ -146,13 +153,14 @@ public class UserController {
 	@RequestMapping("tweet")
 	public void showTweetView(MciRequest mciRequest, MciResponse mciResponse) {
 		if (SessionUtil.getCurrentUser() == null) {
-			List<TwitterTweet> tweetlist = tweetService.getAllTweet();
+			/*List<TwitterTweet> tweetlist = tweetService.getAllTweet();
 			List<UserVO> userList = userService.getUserList(null);
 			mciResponse.setList("userList", userList, UserVO.class);
 			mciResponse.setList("tweetList", tweetlist, TwitterTweet.class);
-			mciResponse.setViewName("twitter");
+			mciResponse.setViewName("twitter");*/
+			mciResponse.setViewName("login");
 		} else {
-			List<TwitterTweet> tweetlist = tweetService.getAllTweet();
+			List<TwitterTweet> tweetlist = tweetService.getFollowingTweet(SessionUtil.getCurrentUser());
 			List<UserVO> userList = userService.getUserList(SessionUtil
 					.getCurrentUser());
 			List<TwitterUserFollowing> followList = followingService
@@ -219,6 +227,27 @@ public class UserController {
 			followingService.deleteFollowing(twitterUserFollowing);
 			mciResponse.setViewName("redirect:/tweet");
 		}
+	}
+	
+	//트위터삭제
+	@RequestMapping("tweet/delete")
+	public void deleteTweet(MciRequest mciRequest, MciResponse mciResponse) {
+		String eid = mciRequest.getParam("id");
+		int id = Integer.parseInt(eid);
+		TwitterTweet twitterTweet = new TwitterTweet();
+		twitterTweet.setId(id);
+		tweetService.deleteTweet(twitterTweet);
+		mciResponse.setViewName("redirect:/tweet");
+	}
+	
+	//파일추가
+	@RequestMapping("/file/fileView/{userId}")
+	public void selectPic(MciRequest mciRequest, MciResponse mciResponse,@PathVariable String userId) {
+		TwitterUserPic picVO = new TwitterUserPic();
+		picVO.setUserId(userId);
+		List<TwitterUserPic> selectPic = picService.getpic(picVO);
+		if(!selectPic.isEmpty())
+			mciResponse.setDownloadFile(new FileInfo(selectPic.get(0).getFilePath(),selectPic.get(0).getFileUuid()));
 	}
 
 }

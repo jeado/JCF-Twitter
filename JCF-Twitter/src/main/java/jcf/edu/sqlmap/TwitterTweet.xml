@@ -5,35 +5,40 @@
 
 	<!-- 트윗출력 문 -->
 	<statement id="select" resultClass="jcf.edu.model.TwitterTweet">
-		SELECT id, register, TWEETS, reg_date FROM twitter_tweet
+		SELECT id, register,
+		TWEETS, reg_date FROM twitter_tweet
 	</statement>
-	
+
 	<!-- 트윗팔로윙 출력 문 -->
-	<statement id="followingselect" resultClass="jcf.edu.model.TwitterTweet" parameterClass="jcf.edu.model.TwitterUserFollowing">
-		SELECT id, register, TWEETS, reg_date FROM twitter_tweet
-		WHERE register = #userId# or register = #followingId#;
+	<statement id="followingselect" resultClass="jcf.edu.model.TwitterTweet"
+		parameterClass="jcf.edu.user.model.UserVO">
+		select * from twitter_tweet
+		where register = #userId# or
+		register in (select following_id from twitter_user_following
+		where user_id = #userId#)
+		order by reg_date desc
 	</statement>
-	
+
 	<!-- 트윗입력 문 -->
 	<statement id="insert" parameterClass="jcf.edu.model.TwitterTweet">
-		INSERT INTO 
+		INSERT INTO
 		twitter_tweet(id, register, TWEETS, reg_date)
 		VALUES(sequence_tweet.nextval, #register#, #tweets#, #regDate#)
 	</statement>
-	
+
 	<!-- 트윗삭제문 -->
 	<statement id="delete" parameterClass="jcf.edu.model.TwitterTweet">
 		DELETE twitter_tweet
 		WHERE id = #id#
 	</statement>
-	
+
 	<!-- 트윗수정문 -->
 	<statement id="update" parameterClass="jcf.edu.model.TwitterTweet">
 		UPDATE twitter_tweet
 		SET id =#id#,
-			register = #register#,
-			TWEETS = #tweets#,
+		register = #register#,
+		TWEETS = #tweets#,
 		WHERE id = #id#
-		
+
 	</statement>
 </sqlMap>

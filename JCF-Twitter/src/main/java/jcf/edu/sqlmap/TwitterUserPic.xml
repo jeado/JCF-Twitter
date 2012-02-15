@@ -4,8 +4,9 @@
 <sqlMap namespace="TwitterUserPic">
 
 	<!-- 파일출력 문 -->
-	<statement id="select" resultClass="jcf.edu.model.TwitterUserPic">
-		SELECT * FROM tiwtter_user_pic
+	<statement id="select" resultClass="jcf.edu.model.TwitterUserPic" parameterClass="jcf.edu.model.TwitterUserPic">
+		SELECT * FROM twitter_user_pic
+		WHERE user_id = #userId#
 	</statement>
 	
 	<!-- 파일입력 문 -->
@@ -23,12 +24,10 @@
 	
 	<!-- 파일수정문 -->
 	<statement id="update" parameterClass="jcf.edu.model.TwitterUserPic">
-		UPDATE tiwtter_user_pic
+		UPDATE twitter_user_pic
 		SET file_uuid =#fileUuid#,
 			file_name = #fileName#,
 			file_path = #filePath#
-			
 		WHERE user_id = #userId#
-		
 	</statement>
 </sqlMap>
