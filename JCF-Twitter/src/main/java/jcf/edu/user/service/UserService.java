@@ -25,6 +25,9 @@ public class UserService {
 	public void insertUser(UserVO user) {
 		dao.update("user.insert", user);
 	}
+	public void deleteUser(UserVO user) {
+		dao.update("user.delete", user);
+	}
 	
 
 }

@@ -28,9 +28,9 @@ public class UserTest {
 	@Before
 	public void 셋업() {
 		u= new UserVO();
-		u.setUserId("112");
-		u.setUserName("1112");
-		u.setUserEmail("2223");
+		u.setUserId("gsagas");
+		u.setUserName("yrere");
+		u.setUserEmail("hfdhjjjk");
 	}
 	
 	@Test
@@ -46,6 +46,10 @@ public class UserTest {
 		for(UserVO c : findCustomer) {
 			System.out.println(c.getUserName());
 		}
+	}
+	@Test
+	public void 회원_삭제테스트() {
+		userservice.deleteUser(u);
 	}
 
 }

@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="user">
-	<statement id="find" parameterClass="java.util.Map"	resultClass="jcf.edu.user.model.UserVO">
+	<statement id="find" parameterClass="java.util.Map"
+		resultClass="jcf.edu.user.model.UserVO">
 
 		select * from twitter_User
-		
+
 		<dynamic prepend="where">
-		
+
 			<isNotEmpty property="userId" prepend="and">
 				user_Id=#userId#
 			</isNotEmpty>
+			<isNotEmpty property="userName" prepend="and">
+				user_Name=#userName#
+			</isNotEmpty>
 		</dynamic>
 	</statement>
-	
+
 	<insert id="insert" parameterClass="jcf.edu.user.model.UserVO">
-		insert into twitter_User values(
+		insert into twitter_User
+		values(
 		#userId#,
 		#userName#,
 		#userEmail#
-		)	
+		)
 	</insert>
+	
+	<statement id="delete" parameterClass="jcf.edu.user.model.UserVO">
+		delete from twitter_User where user_id=#userId#
+	</statement>
 </sqlMap>
