@@ -13,7 +13,7 @@ public class PicService {
 
 	@Autowired
 	private QueryExecutor dao;
-	public PicVO findPic(Map<String, String> pic) {
+	public PicVO findPic(PicVO pic) {
 		return dao.queryForObject ("pic.find", pic, PicVO.class);
 
 	}

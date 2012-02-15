@@ -42,7 +42,7 @@ public class TweetController {
 			List<UserVO> userList = userService.getUserList(SessionUtil.getCurrentUser());
 			mciResponse.setList("userList", userList, UserVO.class);
 			mciResponse.setList("tweetList", tweet, TweetVO.class);
-			mciResponse.setViewName("twitter");
+			mciResponse.setViewName("redirect:/tweet");
 		}
 	}
 
@@ -57,7 +57,7 @@ public class TweetController {
 		List<UserVO> userList = userService.getUserList(SessionUtil.getCurrentUser());
 		mciResponse.setList("userList", userList, UserVO.class);
 		mciResponse.setList("tweetList", tweet, TweetVO.class);
-		mciResponse.setViewName("twitter");
+		mciResponse.setViewName("redirect:/tweet");
 	}
 
 //-----------------------------------------트위터 게시물 삭제 ---------------------------------
@@ -77,6 +77,6 @@ public class TweetController {
 
 		mciResponse.setList("userList", userList, UserVO.class);
 		mciResponse.setList("tweetList", tweetList, TweetVO.class);
-		mciResponse.setViewName("twitter");
+		mciResponse.setViewName("redirect:/tweet");
 	}
 }

@@ -14,7 +14,7 @@ public class SessionUtil {
 		UserVO currentUser =
 				(UserVO) MciRequestContextHolder.get().getHttpServletRequest().getSession().getAttribute("LoginUser");
 
-		if (currentUser == null) throw new RuntimeException("로그인이 정상적으로 이루어 지지 않았습니다.");
+		//if (currentUser == null) throw new RuntimeException("로그인이 정상적으로 이루어 지지 않았습니다.");
 
 		return currentUser;
 	}

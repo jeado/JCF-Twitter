@@ -18,7 +18,7 @@
 	</insert>
 
 
-	<statement id = "find" parameterClass="java.util.Map"  resultClass= "jcf.edu.pic.model.PicVO">
+	<statement id = "find" parameterClass="jcf.edu.pic.model.PicVO"  resultClass= "jcf.edu.pic.model.PicVO">
 		SELECT * FROM TWITTER_USER_PIC
 
 		<dynamic prepend="where">

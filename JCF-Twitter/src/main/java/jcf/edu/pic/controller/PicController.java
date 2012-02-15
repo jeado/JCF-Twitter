@@ -24,11 +24,10 @@ public class PicController {
 		@RequestMapping ("/file/fileView/{userId}")
 		public void picView (MciRequest mciRequest, MciResponse mciResponse,
 								@PathVariable String userId){
-
-			Map <String, String> map = new HashMap <String, String>();
-			map.put("userId", userId);
-			PicVO pic = picService.findPic(map);
-			mciResponse.setDownloadFile(new FileInfo(pic.getFilePath(), pic.getFileUuid()));
+			PicVO pic = new PicVO();
+			pic.setUserId(userId);
+			PicVO fpic = picService.findPic(pic);
+			mciResponse.setDownloadFile(new FileInfo(fpic.getFilePath(), fpic.getFileUuid()));
 
 		}
 }
