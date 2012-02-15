@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap-responsive.min.css" />
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
@@ -26,8 +26,8 @@
 				<a class="brand" href="<%=request.getContextPath()%>/login">JCF-Twitter</a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li><a href="<%=request.getContextPath()%>/tweet">Æ®À§ÅÍ</a></li>
-						<li><a href="<%=request.getContextPath()%>/user/findUsers">»ç¿ëÀÚ°ü¸®</a></li>
+						<li><a href="<%=request.getContextPath()%>/tweet">íŠ¸ìœ„í„°</a></li>
+						<li><a href="<%=request.getContextPath()%>/user/findUsers">ì‚¬ìš©ìžê´€ë¦¬</a></li>
 						<li><a href="http://about.me/jeado">Contact</a></li>
 					</ul>
 				</div>
@@ -38,12 +38,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="span6 offset1">
-				<h2>2012³â JCF ½ÅÀÔ»ç¿ø ±³À°</h2>
+				<h2>2012ë…„ JCF ì‹ ìž…ì‚¬ì› êµìœ¡</h2>
 				<br>
-				<h3>Twitter ¸¸µé±â</h3>
+				<h3>Twitter ë§Œë“¤ê¸°</h3>
 				<ul>
-					<li>Tweet ÇÏ±â</li>
-					<li>»ç¿ëÀÚ CRUD</li>
+					<li>Tweet í•˜ê¸°</li>
+					<li>ì‚¬ìš©ìž CRUD</li>
 					<li>Follow & Unfollow</li>
 				</ul>
 			</div>
@@ -51,10 +51,10 @@
 				<form class="form-horizontal well" action="loginHandle">
 					<div class="control-group" >
 						USER ID : <input name="userId" class="span3" type="text">
-							<span class="help-inline">»ç¿ëÀÚ °ü¸®¸¦ ÅëÇÏ¿© µî·Ï°¡´É</span>
+							<span class="help-inline">ì‚¬ìš©ìž ê´€ë¦¬ë¥¼ í†µí•˜ì—¬ ë“±ë¡ê°€ëŠ¥</span>
 					</div>
 					<div class="control-group"">
-						<button type="submit" class="btn btn-primary offset2">ÀÔÀå</button>
+						<button type="submit" class="btn btn-primary offset2">ìž…ìž¥</button>
 					</div>
 				</form>
 			</div>

@@ -35,6 +35,7 @@ public class UserPicUploadEventHandler implements UploadEventHandler {
 		String userId = (String)attributes.get("userId");
 		List<FileInfo> fileInfos = info.getFileInfos();
 		FileInfo fileInfo = fileInfos.get(0);
+		
 		String fileUuid = fileInfo.getCallName();
 		String fileName = fileInfo.getName();
 		String filePath = fileInfo.getFolder();
