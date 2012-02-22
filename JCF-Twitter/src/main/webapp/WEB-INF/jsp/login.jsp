@@ -53,7 +53,7 @@
 						USER ID : <input name="userId" class="span3" type="text">
 							<span class="help-inline">사용자 관리를 통하여 등록가능</span>
 					</div>
-					<div class="control-group"">
+					<div class="control-group">
 						<button type="submit" class="btn btn-primary offset2">입장</button>
 					</div>
 				</form>

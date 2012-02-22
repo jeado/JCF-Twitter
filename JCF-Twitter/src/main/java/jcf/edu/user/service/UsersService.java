@@ -22,6 +22,7 @@ public class UsersService {
 	public List<UserVO> findUsers(Map<String, String> map){
 		return dao.queryForList("users.find", map, UserVO.class);
 	}
+
 	public void insertUsers(UserVO user){
 		dao.update("users.insert", user);
 	}

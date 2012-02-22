@@ -10,6 +10,9 @@
 	<isNotEmpty property="userId" prepend="AND">
 		user_Id=#userId#
 	</isNotEmpty>
+	<isNotEmpty property="userName" prepend="AND">
+		user_Name=#userName#
+	</isNotEmpty>
 	</dynamic>
 
 
