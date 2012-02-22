@@ -2,6 +2,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jcf.edu.follow.model.FollowVO;
+import jcf.edu.follow.service.FollowService;
+import jcf.edu.twit.model.TwitVO;
+import jcf.edu.twit.service.TwitterService;
 import jcf.edu.user.model.UserVO;
 import jcf.edu.user.service.UsersService;
 
@@ -22,6 +26,10 @@ public class UsersModelTest {
 
 	@Autowired
 	private UsersService usersService;
+	@Autowired
+	private TwitterService twitService;
+	@Autowired
+	private FollowService followService;
 
 	 @Before
 	 public void 셋업(){
@@ -63,6 +71,28 @@ public class UsersModelTest {
 	 @Test
 	 public void 고객_삭제테스트(){
 		 usersService.deleteUsers(users);
+	 }
+
+	 @Test
+	 public void 트윗삽입테스트(){
+		 TwitVO twit = new TwitVO();
+		 twit.setRegister("sdfsdf");
+		 twit.setTweets("sdfsdsdfsfdsdfsfd");
+		 twitService.insertTwit(twit);
+	 }
+	 @Test
+	 public void 팔로우테스트(){
+		 FollowVO fol = new FollowVO();
+		 fol.setUserId("sdfsw4e5dsfgf");
+		 fol.setFollowingId("dfsfdsdfsfd");
+		 followService.insertFollow(fol);
+	 }
+	 @Test
+	 public void 언팔로우테스트(){
+		 FollowVO fol = new FollowVO();
+		 fol.setUserId("sdfsdf");
+		 fol.setFollowingId("dfsfdsdfsfd");
+		 followService.deleteFollow(fol);
 	 }
 
 

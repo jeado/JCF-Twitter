@@ -3,6 +3,7 @@ package jcf.edu.user.controller;
 import java.util.List;
 import java.util.Map;
 
+import jcf.edu.login.util.SessionUtil;
 import jcf.edu.user.model.UserVO;
 import jcf.edu.user.service.UsersService;
 import jcf.sua.mvc.MciRequest;
@@ -119,6 +120,7 @@ public class UsersController {
 			if(!findUsers.isEmpty())
 			{
 					mciResponse.setViewName("redirect:/tweet");
+					SessionUtil.addUser(findUsers.get(0));
 			}
 			else
 			{
@@ -126,12 +128,5 @@ public class UsersController {
 			}
 
 		}
-
-
-	//이미지 보기
-	@RequestMapping("showMeFile")
-	public void show(MciRequest mciRequest, MciResponse mciResponse){
-		mciResponse.setViewName("fileView");
-	}
 
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="pic">
+<insert id="insert" parameterClass="jcf.edu.user.model.PicVO">
+		insert into twitter_user_pic
+		values(
+		#fileUuid#,
+		#fileName#,
+		#filePath#,
+		#userId#
+		)
+</insert>
+
+	<statement id="find" parameterClass="java.util.Map"
+		resultClass="jcf.edu.user.model.PicVO">
+
+		select * from twitter_User_Pic
+
+		<dynamic prepend="where">
+
+			<isNotEmpty property="userId" prepend="and">
+				user_Id=#userId#
+			</isNotEmpty>
+		</dynamic>
+	</statement>
+	<statement id="update" parameterClass="jcf.edu.user.model.PicVO">
+		update twitter_User_Pic set file_uuid=#fileUuid#,
+		file_name=#fileName#, file_path=#filePath# where user_Id=#userId#
+	</statement>
+
+</sqlMap>

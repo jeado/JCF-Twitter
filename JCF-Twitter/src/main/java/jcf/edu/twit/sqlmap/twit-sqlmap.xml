@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace = "twit">
+	<statement id="select" resultClass="jcf.edu.twit.model.TwitVO">
+		select * from TWITTER_TWEET
+	</statement>
+	<statement id="find" parameterClass ="java.util.Map" resultClass="jcf.edu.twit.model.TwitVO">
+	select * from TWITTER_TWEET
+	<dynamic prepend = "where">
+	<isNotEmpty property="id" prepend="AND">
+		id=#id#
+	</isNotEmpty>
+	</dynamic>
+	</statement>
+
+	<statement id="followfind" parameterClass ="jcf.edu.user.model.UserVO" resultClass="jcf.edu.twit.model.TwitVO">
+		select * from twitter_tweet
+  			where register = #userId# or
+  			register in (select following_id from twitter_user_following
+     		where USER_ID = #userId#)
+  			order by reg_date desc
+	</statement>
+
+	<insert id="insert" parameterClass="jcf.edu.twit.model.TwitVO">
+		INSERT INTO TWITTER_TWEET(
+		id,
+		register,
+		tweets,
+		reg_date
+		) VALUES(
+		TWITTER_TWEET_SEQUENCE.nextVal,
+		#register#,
+		#tweets#,
+		sysdate
+		)
+	</insert>
+
+	<statement id="update" parameterClass="jcf.edu.twit.model.TwitVO">
+		UPDATE TWITTER_TWEET SET
+		id = #id#,
+		register = #register#,
+		tweets = #tweets#,
+		reg_date = #regDate#
+
+		WHERE id = #id#
+
+	</statement>
+
+	<statement id="delete" parameterClass="jcf.edu.twit.model.TwitVO">
+		DELETE FROM TWITTER_TWEET WHERE id = #id#
+	</statement>
+</sqlMap>

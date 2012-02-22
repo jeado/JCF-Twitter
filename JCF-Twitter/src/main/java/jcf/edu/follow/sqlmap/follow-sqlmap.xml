@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD SQL Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace = "follow">
+
+	<statement id="select" resultClass="jcf.edu.follow.model.FollowVO">
+		select * from TWITTER_USER_FOLLOWING
+	</statement>
+
+	<insert id="insert" parameterClass="jcf.edu.follow.model.FollowVO">
+		INSERT INTO TWITTER_USER_FOLLOWING(
+		USER_ID,
+		FOLLOWING_ID
+		) VALUES(
+		#userId#,
+		#followingId#
+		)
+	</insert>
+
+	<statement id="find" parameterClass="jcf.edu.follow.model.FollowVO">
+		select * from TWITTER_USER_FOLLOWING
+		where USER_ID = #userId#
+	</statement>
+
+	<statement id="delete" parameterClass="jcf.edu.follow.model.FollowVO">
+		DELETE FROM TWITTER_USER_FOLLOWING WHERE USER_ID = #userId#
+	</statement>
+</sqlMap>
