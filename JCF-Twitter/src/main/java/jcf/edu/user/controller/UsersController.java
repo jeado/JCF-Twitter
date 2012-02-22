@@ -36,7 +36,6 @@ public class UsersController {
 		mciResponse.setList("userList", findUsers);
 		mciResponse.setViewName("user/userList");
 
-
 	}
 	@RequestMapping("/user/insertUser")
 	public void joinMember(MciRequest mciRequest, MciResponse mciResponse){
@@ -117,7 +116,7 @@ public class UsersController {
 			List<UserVO> findUsers = usersService.findUsers(param);
 
 
-			if(findUsers!=null)
+			if(!findUsers.isEmpty())
 			{
 					mciResponse.setViewName("redirect:/tweet");
 			}
@@ -126,8 +125,9 @@ public class UsersController {
 					mciResponse.setViewName("redirect:/login");
 			}
 
-
 		}
+
+
 	//이미지 보기
 	@RequestMapping("showMeFile")
 	public void show(MciRequest mciRequest, MciResponse mciResponse){
