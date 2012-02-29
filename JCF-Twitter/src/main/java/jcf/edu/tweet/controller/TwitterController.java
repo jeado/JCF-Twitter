@@ -21,24 +21,43 @@ public class TwitterController {
 	@Autowired
 	private TwitterService twitterService;
 
+	@RequestMapping("tweetList.json")
+	public void getTweetList(MciRequest mciRequest, MciResponse mciResponse){
+
+		List<TweetVO> selectTweet = twitterService.selectTweet(SessionUtil.getCurrentUser());
+
+		mciResponse.setList("tweetList", selectTweet);
+	}
+
+	@RequestMapping("insertTweet.action")
+	public void insertTweetJSONData(MciRequest mciRequest, MciResponse mciResponse){
+		TweetVO tweetVO = mciRequest.get("TweetDS", TweetVO.class);
+		tweetVO.setRegister("haibane");
+		tweetVO.setId(999);
+		twitterService.insertTweet(tweetVO);
+	}
+
 	@RequestMapping("tweet")
 	public void showLoginView(MciRequest mciRequest, MciResponse mciResponse){
-
+		SessionUtil.addUser(new UserVO("haibane", "jeado", "haibane84@gmail.com"));
 		UserVO current = SessionUtil.getCurrentUser();
-		if(current==null){
-			mciResponse.setViewName("redirect:/login");
-		}
-		else{
-			List<UserVO> getUser = twitterService.getUsers(current);
-			List<FollowingVO> follwerUsers = twitterService.follwerUsers(current);
-			List<TweetVO> selectTweet = twitterService.selectTweet(current);
-
-			mciResponse.setList("tweetList",selectTweet,TweetVO.class);
-			mciResponse.setList("followingList", follwerUsers,FollowingVO.class);
-			mciResponse.setList("userList", getUser,UserVO.class);
-			mciResponse.set("currentUser",current,UserVO.class);
-			mciResponse.setViewName("twitter");
-		}
+		mciResponse.set("currentUser",current,UserVO.class);
+		mciResponse.setViewName("twitter");
+//		UserVO current = SessionUtil.getCurrentUser();
+//		if(current==null){
+//			mciResponse.setViewName("redirect:/login");
+//		}
+//		else{
+//			List<UserVO> getUser = twitterService.getUsers(current);
+//			List<FollowingVO> follwerUsers = twitterService.follwerUsers(current);
+//			List<TweetVO> selectTweet = twitterService.selectTweet(current);
+//
+//			mciResponse.setList("tweetList",selectTweet,TweetVO.class);
+//			mciResponse.setList("followingList", follwerUsers,FollowingVO.class);
+//			mciResponse.setList("userList", getUser,UserVO.class);
+//			mciResponse.set("currentUser",current,UserVO.class);
+//			mciResponse.setViewName("twitter");
+//		}
 	}
 
 	@RequestMapping("follow")

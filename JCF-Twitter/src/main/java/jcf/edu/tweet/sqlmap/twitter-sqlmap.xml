@@ -29,7 +29,7 @@
 			tweets,
  			reg_date
 		) values(
-			TWITTER_TWEET_SEQUENCE.nextval,
+			SEQ_TWITTER_CONTENTS.next,
 			#register#,
 			#tweets#,
  			sysdate

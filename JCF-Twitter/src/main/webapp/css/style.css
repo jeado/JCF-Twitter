@@ -1,6 +1,5 @@
 body{
-	padding-top: 60px;		
-	padding-bottom: 40px;
+	padding-top: 60px;
 	background-image: url(../img/background.gif);
 	background-attachment: fixed;
 	background-repeat: no-repeat;
@@ -184,7 +183,7 @@ body{
 
 .stream-item-activity-network .activity-timestamp {
 	margin: 15px 18px 0 20px;
-	
+
 }
 
 body.stream-item:hover, body.hovered-stream-item {

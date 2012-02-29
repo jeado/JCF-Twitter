@@ -34,7 +34,7 @@
 	<classpathentry kind="lib" path="libs/jcf-data-api-3.7.4.jar"/>
 	<classpathentry kind="lib" path="libs/jcf-extproc-3.7.4.jar"/>
 	<classpathentry kind="lib" path="libs/jcf-query-3.7.4.jar"/>
-	<classpathentry kind="lib" path="libs/jcf-sua-3.7.4.jar"/>
+	<classpathentry kind="lib" path="libs/jcf-sua-3.7.4.jar" sourcepath="C:/jcf-ide/tools/maven/repository/jcf/jcf-sua/3.7.4/jcf-sua-3.7.4-sources.jar"/>
 	<classpathentry kind="lib" path="libs/jcf-sua-support-3.7.4.jar"/>
 	<classpathentry kind="lib" path="libs/jcf-upload-3.7.4.jar"/>
 	<classpathentry kind="lib" path="libs/jcf-util-3.7.4.jar"/>
